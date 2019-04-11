@@ -4,6 +4,6 @@ from .models import *
 # Register your models here.
 
 
-admin.site.register(DormBuild)
-admin.site.register(DormRoom)
+admin.site.register(College)
+admin.site.register(Major)
 
