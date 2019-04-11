@@ -1,0 +1,9 @@
+college/migrations/*
+dormitory/migrations/*
+student/migrations/*
+usercenter/migrations/*
+aidorm/__pycache__/
+college/__pycache__/
+dormitory/__pycache__/
+student/__pycache__/
+usercenter/__pycache__/
