@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'dormitory',
     'student',
     'usercenter',
+    'college',
 ]
 
 MIDDLEWARE = [
