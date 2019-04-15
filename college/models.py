@@ -17,6 +17,19 @@ class College(models.Model):
         verbose_name_plural = verbose_name
 
 
+class Grade(models.Model):
+    grade = models.CharField(verbose_name='年级', max_length=30)
+    college = models.ManyToManyField(College, verbose_name='院系')
+
+    def __str__(self):
+        return self.grade
+
+    class Meta:
+        db_table = 'Grade'
+        verbose_name = '年级信息表'
+        verbose_name_plural = verbose_name
+
+
 class Major(models.Model):
     college = models.ForeignKey(College, verbose_name='院系')
     major_name = models.CharField(verbose_name='专业名称', max_length=30)
