@@ -119,9 +119,11 @@ class RoomEdit(APIView):
         error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
 
-
     def delete(self, request):
         pass
 
     def patch(self, request):
         pass
+
+
+

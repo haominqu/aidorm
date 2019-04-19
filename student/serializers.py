@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
-class StudentListSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     sex = serializers.SerializerMethodField('sex_field')
 
     def sex_field(self, obj):
@@ -9,7 +9,7 @@ class StudentListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        fields = ('id', 'studentid', 'name', 'phone')
+        fields = ('id', 'studentid', 'name', 'sex', 'phone')
 
 
 class StudentDetailSerializer(serializers.ModelSerializer):

@@ -3,5 +3,6 @@ from django.views.generic import TemplateView
 from .views import *
 
 urlpatterns = [
-    # url(r'^userlogin', UserLogin.as_view(), name='user_login'),
+    url(r'^editcollege', CollegeEdit.as_view(), name='edit_college'),
+    url(r'^editmajor', MajorEdit.as_view(), name='edit_major'),
  ]

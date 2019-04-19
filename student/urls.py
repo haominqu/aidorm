@@ -3,5 +3,6 @@ from .views import *
 
 
 urlpatterns = [
-    url(r'studentedit/', StudentEdit.as_view(), name='student_edit'),
+    url(r'editstudent', StudentEdit.as_view(), name='edit_student'),
+    url(r'editstutail', StuDetailEdit.as_view(), name='edit_stutail'),
 ]
