@@ -25,7 +25,15 @@ SECRET_KEY = '8f#vnl1p*ju5siq$+&y&hw+j2lnnv^kl&q8z(%3ofgvrs9)lbb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ['*']
+
+from corsheaders.defaults import default_headers
+CORS_ALLOW_HEADERS = default_headers + (
+'Content-Type',
+)
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 
 # Application definition
@@ -41,9 +49,11 @@ INSTALLED_APPS = [
     'student',
     'usercenter',
     'college',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -111,9 +121,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'zh-hans'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Shanghai'
+TIME_ZONE = 'UTC'
+
 
 USE_I18N = True
 
@@ -126,3 +137,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+AUTH_USER_MODEL = 'usercenter.UserInfo'
+
+from datetime import datetime, timedelta
+SECRET_KEY = "quscsacascascashmxiaobao"
+# token expiration
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': timedelta(seconds=36000),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=1),
+    'JWT_SECRET_KEY' :"quhmxiaobao",
+    'JWT_SECRET_KEY': SECRET_KEY,
+
+}
+
+

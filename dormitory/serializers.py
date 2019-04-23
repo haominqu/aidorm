@@ -6,7 +6,7 @@ class BuildSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DormBuild
-        fields = ('id','buildname')
+        fields = ('id', 'buildname')
 
 
 class RoomSerializer(serializers.ModelSerializer):

@@ -6,4 +6,5 @@ from .models import *
 
 admin.site.register(College)
 admin.site.register(Major)
+admin.site.register(Grade)
 

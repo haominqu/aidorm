@@ -34,7 +34,6 @@ class Major(models.Model):
 
 class Grade(models.Model):
     grade = models.CharField(verbose_name='年级', max_length=30)
-    college = models.ManyToManyField(College, verbose_name='院系')
 
     def __str__(self):
         return self.grade

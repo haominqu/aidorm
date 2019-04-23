@@ -5,4 +5,5 @@ from .views import *
 urlpatterns = [
     url(r'^editcollege', CollegeEdit.as_view(), name='edit_college'),
     url(r'^editmajor', MajorEdit.as_view(), name='edit_major'),
+    url(r'^editgrade', GradeEdit.as_view(), name='edit_grade'),
  ]

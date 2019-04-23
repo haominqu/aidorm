@@ -34,11 +34,8 @@ class BuildingEdit(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def post(self, request):
-        buildname = request.POST.get("bulidname", "no")
-        result = False
-        data = ""
-        error = ""
-        if buildname == "no":
+        buildname = request.POST.get("buildname", "")
+        if buildname == "":
             result = False
             data = ""
             error = "楼名不能为空"
@@ -47,7 +44,7 @@ class BuildingEdit(APIView):
         if oldbuild:
             result = False
             data = ""
-            error = "楼名不能为空"
+            error = "楼名不能重复"
             return JsonResponse({"result": result, "data": data, "error": error})
         else:
             try:
@@ -62,10 +59,10 @@ class BuildingEdit(APIView):
     def delete(self, request):
         pass
 
-    def patch(self, request):
-        buildid = request.POST.get("buildid","")
-        buildname = request.POST.get("buildname","")
-        if buildid=="" or buildname=="":
+    def put(self, request):
+        buildid = request.data.get("buildid", "")
+        buildname = request.data.get("buildname", "")
+        if buildid == "" or buildname == "":
             result = False
             data = ""
             error = "id,楼名不能为空"
@@ -74,6 +71,10 @@ class BuildingEdit(APIView):
             build = DormBuild.objects.get(id=buildid)
         except ObjectDoesNotExist as e:
             logging.warning(e)
+            result = False
+            data = ""
+            error = "未找到楼信息"
+            return JsonResponse({"result": result, "data": data, "error": error})
         build.buildname = buildname
         build.save()
         result = True

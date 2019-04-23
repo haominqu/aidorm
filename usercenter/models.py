@@ -10,14 +10,14 @@ MROLE_CHIOCES = (
 )
 
 class UserInfo(AbstractUser):
-    role = models.IntegerField(verbose_name="角色", choices=MROLE_CHIOCES,default=3)
+    role = models.IntegerField(verbose_name="角色", choices=MROLE_CHIOCES,default=1)
 
     def __str__(self):
         return self.username
 
     class Meta:
         db_table = 'UserInfo'
-        verbose_name = '宿管信息表'
+        verbose_name = '用户信息表'
         verbose_name_plural = verbose_name
 
 

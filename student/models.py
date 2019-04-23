@@ -1,5 +1,5 @@
 from django.db import models
-from college.models import Major
+from college.models import *
 from dormitory.models import DormRoom
 
 # Create your models here.
@@ -40,6 +40,7 @@ class StudentDetail(models.Model):
     liaisons_mobile = models.CharField(verbose_name='紧急联络人电话', max_length=20)
     student = models.OneToOneField(Student, verbose_name='学生信息')
     major = models.ForeignKey(Major, verbose_name='专业信息')
+    grade = models.ForeignKey(Grade, verbose_name='年级')
     dormitory = models.ForeignKey(DormRoom, verbose_name='所在宿舍')
 
     def __str__(self):
