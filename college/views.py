@@ -143,6 +143,11 @@ class MajorEdit(APIView):
     def delete(self, request):
         """method of deleting major"""
         majorid = request.data.get("majorid", '')
+        if majorid == "":
+            result = False
+            data = ""
+            error = "id不能为空"
+            return JsonResponse({"result": result, "data": data, "error": error})
         oldmajor = Major.objects.filter(id=majorid)
         if not oldmajor:
             result = False
@@ -156,22 +161,13 @@ class MajorEdit(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def put(self, request):
-        collid = request.data.get("collid", '')
         majorid = request.data.get("majorid", '')
         majorcode = request.data.get("majorcode", '')
         majorname = request.data.get("majorname", '')
-        if collid == "" or majorid == "" or majorcode == "" or majorname == "":
+        if majorid == "" or majorcode == "" or majorname == "":
             result = False
             data = ""
             error = "信息不能为空"
-            return JsonResponse({"result": result, "data": data, "error": error})
-        try:
-            college = College.objects.get(id=collid, isDelete=False)
-        except ObjectDoesNotExist as e:
-            logging.warning(e)
-            result = False
-            data = ""
-            error = "未找到院系信息"
             return JsonResponse({"result": result, "data": data, "error": error})
         oldmajor = Major.objects.filter(id=majorid)
         if not oldmajor:
@@ -179,7 +175,7 @@ class MajorEdit(APIView):
             data = ""
             error = "未找到专业信息"
             return JsonResponse({"result": result, "data": data, "error": error})
-        oldmajor.update(college=college, major_id=majorcode, major_name=majorname)
+        oldmajor.update(major_id=majorcode, major_name=majorname)
         result = True
         data = ""
         error = "修改成功"
