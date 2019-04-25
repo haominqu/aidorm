@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class College(models.Model):
     college_id = models.CharField(verbose_name='院系编码', max_length=30)
     college_name = models.CharField(verbose_name='院系名称', max_length=30)

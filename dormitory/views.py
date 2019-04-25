@@ -22,7 +22,7 @@ import json
 # build edit
 class BuildingEdit(APIView):
     # permission_classes = (
-    #     IsCollegeAdmin,
+    #     IsConnAdmin,
     # )
 
     def get(self, request):
@@ -100,19 +100,17 @@ class RoomEdit(APIView):
         roomno = request.POST.get("roomno", "")
         buildid = request.POST.get("buildid", "")
         roomtype = request.POST.get("roomtype", "")
-        overnum = request.POST.get("overnum", "")
-        overbed = request.POST.get("overbed", "")
         picture = request.FILES.get('picture', "")
         dormhead = 0
         isFull = False
         build = DormBuild.objects.filter(id=buildid)
-        if roomno=="" or buildid=="" or roomtype=="" or overnum=="" or overbed=="" or picture=="":
+        if roomno=="" or buildid=="" or roomtype=="" or picture=="":
             result = False
             data = ""
             error = "信息不能为空"
             return JsonResponse({"result": result, "data": data, "error": error})
         try:
-            DormRoom.objects.create(build=build[0],room_id=roomno,room_type=roomtype,over_num=overnum,over_bed=overbed,picture=picture,dorm_head=dormhead,isFull=isFull)
+            DormRoom.objects.create(build=build, room_id=roomno,room_type=roomtype,picture=picture)
         except ObjectDoesNotExist as e:
             logging.warning(e)
         result = True
@@ -123,7 +121,7 @@ class RoomEdit(APIView):
     def delete(self, request):
         pass
 
-    def patch(self, request):
+    def put(self, request):
         pass
 
 

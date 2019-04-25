@@ -20,9 +20,9 @@ import json
 
 # Create your views here.
 class CollegeEdit(APIView):
-    # permission_classes = (
-    #     IsCollegeAdmin,
-    # )
+    permission_classes = (
+        IsSchoolAdmin,
+    )
 
     def get(self, request):
         college = College.objects.filter(isDelete=False)
@@ -52,8 +52,8 @@ class CollegeEdit(APIView):
         except ObjectDoesNotExist as e:
             logging.warning(e)
         result = True
-        data = ""
-        error = "添加成功"
+        data = "添加成功"
+        error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def delete(self, request):
@@ -70,19 +70,19 @@ class CollegeEdit(APIView):
             logging.warning(e)
             result = False
             data = ""
-            error = "未找到"
+            error = "未找到院系信息"
             return JsonResponse({"result": result, "data": data, "error": error})
         oldcoll.update(isDelete=True)
         result = True
-        data = ""
-        error = "删除成功"
+        data = "删除成功"
+        error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def put(self, request):
         collid = request.data.get("collid", '')
         collcode = request.data.get("collcode", '')
         collname = request.data.get("collname", '')
-        if collid == "":
+        if collid == "" or collcode == "" or collname == "":
             result = False
             data = ""
             error = "信息不能为空"
@@ -93,16 +93,20 @@ class CollegeEdit(APIView):
             logging.warning(e)
             result = False
             data = ""
-            error = "未找到"
+            error = "未找到院系信息"
             return JsonResponse({"result": result, "data": data, "error": error})
         oldcoll.update(college_id=collcode, college_name=collname)
         result = True
-        data = ""
-        error = "修改成功"
+        data = "修改成功"
+        error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
 
 
 class MajorEdit(APIView):
+    permission_classes = (
+        IsSchoolAdmin,
+    )
+
     def get(self, request):
         major = Major.objects.filter(isDelete=False)
         majordata = MajorSerializer(major, many=True)
@@ -177,14 +181,23 @@ class MajorEdit(APIView):
             return JsonResponse({"result": result, "data": data, "error": error})
         oldmajor.update(major_id=majorcode, major_name=majorname)
         result = True
-        data = ""
-        error = "修改成功"
+        data = "修改成功"
+        error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
 
 
 class GradeEdit(APIView):
+    permission_classes = (
+        IsSchoolAdmin,
+    )
+
     def get(self, request):
-        pass
+        major = Grade.objects.all()
+        gradedata = GradeSerializer(major, many=True)
+        result = True
+        data = gradedata.data
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
 
     def post(self, request):
         grade = request.POST.get("grade", "")
@@ -225,6 +238,12 @@ class GradeEdit(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
 
+# from .rexcel import ReadExcel
+#
+# class SaveData(APIView):
+#     def get(self, request):
+#         ReadExcel()
+#         return True
 
 
 

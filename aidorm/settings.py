@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'usercenter',
     'college',
     'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

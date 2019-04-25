@@ -2,7 +2,7 @@ from rest_framework import permissions
 from rest_framework_jwt.utils import jwt_decode_handler
 
 
-class IsCollegeAdmin(permissions.BasePermission):
+class IsConnAdmin(permissions.BasePermission):
     """
     Custom permission to only allow owners of an object to edit it.
     """
