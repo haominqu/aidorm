@@ -1,0 +1,4784 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 5.1.6.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2019-06-13T15:42:18.468560630"/>
+	<meta name="Originator" content="Microsoft Word 11"/>
+	<meta name="ProgId" content="Word.Document"/>
+	<style type="text/css">
+		pre.ctl { font-family: "Liberation Mono", monospace }
+		code.ctl { font-family: "Liberation Mono", monospace }
+	</style>
+</head>
+<body lang="zh-CN" dir="ltr">
+<p>　　　　　　　　　　　　<font size="4" style="font-size: 14pt">达内研究院</font><font face="Liberation Serif, serif"><span lang="en-US"><font size="4" style="font-size: 14pt">ai</font></span></font><font size="4" style="font-size: 14pt">智慧宿舍</font><font face="Liberation Serif, serif"><span lang="en-US"><font size="4" style="font-size: 14pt">API</font></span></font><font size="4" style="font-size: 14pt">文档指南</font></p>
+<h4>超级管理员功能</h4>
+<h4 style="margin-left: 0.53cm">１．添加基础设施管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>学校管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>宿舍管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>导员</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong> 
+</p>
+<ul>
+	<li/>
+<p>超级管理员可对基础设施管理员、学校管理员、宿舍管理员、导员的账户进行添加
+		</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../userinfo/super/manage</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">username</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>用户名</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">password</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>密码</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">role</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>角色　<font face="Liberation Serif, serif"><span lang="en-US">1</span></font>：学校管理员；<font face="Liberation Serif, serif"><span lang="en-US">2</span></font>：基础设施管理员；<font face="Liberation Serif, serif"><span lang="en-US">3</span></font>：导员；<font face="Liberation Serif, serif"><span lang="en-US">4</span></font>：宿舍管理员</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">添加成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">2</span></font>．修改基础设施管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>学校管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>宿舍管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>导员</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong> 
+</p>
+<ul>
+	<li/>
+<p>超级管理员可对基础设施管理员、学校管理员、宿舍管理员、导员的账户进行修改
+		</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../userinfo/super/manage</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">PUT
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">username</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>用户名</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">old_password</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>旧密码</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">new_password</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>新密码</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">role</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>角色　<font face="Liberation Serif, serif"><span lang="en-US">1</span></font>：学校管理员；<font face="Liberation Serif, serif"><span lang="en-US">2</span></font>：基础设施管理员；<font face="Liberation Serif, serif"><span lang="en-US">3</span></font>：导员；<font face="Liberation Serif, serif"><span lang="en-US">4</span></font>：宿舍管理员</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">修改成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">3</span></font>．删除基础设施管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>学校管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>宿舍管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>导员</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong> 
+</p>
+<ul>
+	<li/>
+<p>超级管理员可对基础设施管理员、学校管理员、宿舍管理员、导员的账户进行删除
+		</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../userinfo/super/manage</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">DELETE
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">username</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>用户名</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">role</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>角色　<font face="Liberation Serif, serif"><span lang="en-US">1</span></font>：学校管理员；<font face="Liberation Serif, serif"><span lang="en-US">2</span></font>：基础设施管理员；<font face="Liberation Serif, serif"><span lang="en-US">3</span></font>：导员；<font face="Liberation Serif, serif"><span lang="en-US">4</span></font>：宿舍管理员</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">删除成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">4</span></font>．查询基础设施管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>学校管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>宿舍管理员<font face="Liberation Serif, serif"><span lang="en-US">/</span></font>导员</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong> 
+</p>
+<ul>
+	<li/>
+<p>超级管理员可对基础设施管理员、学校管理员、宿舍管理员、导员的账户进行查询，可按角色查询全部的用户，或者按角色及用户查询具体用户。
+		</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../userinfo/super/manage</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">GET
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">username</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">否</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>用户名</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">role</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>角色　<font face="Liberation Serif, serif"><span lang="en-US">1</span></font>：学校管理员；<font face="Liberation Serif, serif"><span lang="en-US">2</span></font>：基础设施管理员；<font face="Liberation Serif, serif"><span lang="en-US">3</span></font>：导员；<font face="Liberation Serif, serif"><span lang="en-US">4</span></font>：宿舍管理员</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:[</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;: 14,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;username&quot;: &quot;python1&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;role&quot;: &quot;</code></span></font><code class="cjk">学校管理员</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">},</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;: 18,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;username&quot;: &quot;aa&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;role&quot;: &quot;</code></span></font><code class="cjk">学校管理员</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">]</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">json</span></font></p>
+				</td>
+				<td valign="top" style="border: none; padding: 0cm"></td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">学校管理员功能</h4>
+<h4 style="margin-left: 0.53cm">１．添加院系</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong> 
+</p>
+<ul>
+	<li/>
+<p>学校管理员添加院系 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editcollege</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">collcode</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系代码</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">collname</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系名称</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">添加成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">２．修改院系</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong> 
+</p>
+<ul>
+	<li/>
+<p>学校管理员修改院系信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editcollege</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">PUT
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">collid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">collcode</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系代码</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">collname</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系名称</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;: &quot;</code></span></font><code class="cjk">修改成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">3</span></font>．删除院系</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong> 
+</p>
+<ul>
+	<li/>
+<p>学校管理员删除指定院系 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editcollege</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">DELETE
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">collid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;: &quot;</code></span></font><code class="cjk">删除成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">4</span></font>．查询院系</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员获取学校的全部院系 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editcollege</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">GET
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<ul>
+	<li/>
+<p>无 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;: [</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;: 1,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;college_id&quot;: &quot;10001&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;college_name&quot;: &quot;</code></span></font><code class="cjk">理学院</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">},</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;: 2,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;college_id&quot;: &quot;10002&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;college_name&quot;: &quot;</code></span></font><code class="cjk">宇航学院</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">]</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">json</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">id</span></font>：院系<font face="Liberation Serif, serif"><span lang="en-US">id</span></font>，<font face="Liberation Serif, serif"><span lang="en-US">college_id</span></font>：院系代码，<font face="Liberation Serif, serif"><span lang="en-US">college_name</span></font>：院系名称</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">５．增加专业</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员为院系单个添加专业信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editmajor</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">collid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">majorcode</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>专业代码</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">majorname</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>专业名称</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">添加成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">６．修改专业</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员修改某一专业信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editmajor</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">PUT
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">majorid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>专业<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">majorcode</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>专业代码</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">majorname</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>专业名称</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">修改成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">７．删除专业</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员删除某一专业信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editmajor</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">DELETE
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">majorid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>专业<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">删除成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">８．查询专业</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员查询院系下的全部专业信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editmajor</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">GET
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">collid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:[</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;: 4,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;major_id&quot;: &quot;10013&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;major_name&quot;: &quot;</code></span></font><code class="cjk">平面设计</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;college&quot;: &quot;</code></span></font><code class="cjk">美术学院</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">},</code></span></font>
+<code class="cjk">         </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;: 4,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;major_id&quot;: &quot;10013&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;major_name&quot;: &quot;</code></span></font><code class="cjk">平面设计</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;college&quot;: &quot;</code></span></font><code class="cjk">美术学院</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">],</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">json</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">id</span></font>：专业<font face="Liberation Serif, serif"><span lang="en-US">id</span></font>，<font face="Liberation Serif, serif"><span lang="en-US">major_id</span></font>：专业代码，<font face="Liberation Serif, serif"><span lang="en-US">major_name</span></font>：专业名称，<font face="Liberation Serif, serif"><span lang="en-US">college</span></font>：所属院系</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">９．增加年级</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员添加年级 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editgrade</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">grade</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>年级</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">添加成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">10</span></font>．修改年级</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员修改年级信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editgrade</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">PUT
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">gradeid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>年级<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">grade</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>年级</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">修改成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">11</span></font>．删除年级</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员删除年级 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editgrade</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">DELETE
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">gradeid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>年级<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">删除成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">12</span></font>．查询年级</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员查询全部年级 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editgrade</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">GET
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<ul>
+	<li/>
+<p>无 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;: [</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;: 5,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;grade&quot;: &quot;2016</code></span></font><code class="cjk">级</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">},</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;: 6,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;grade&quot;: &quot;2017</code></span></font><code class="cjk">级</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">],</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">json</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">id</span></font>：年级<font face="Liberation Serif, serif"><span lang="en-US">id</span></font>，<font face="Liberation Serif, serif"><span lang="en-US">grade</span></font>：年级</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong></p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">13</span></font>．增加学生</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员单个添加学生基本信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/editstudent</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_code</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>学号</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_name</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>姓名</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">genger</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>性别</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">phone</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>手机号</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">liaisons</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>紧急联络人</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">liaisons_mobile</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>紧急联络人电话</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">major_code</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>专业代码</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">grade</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>年级</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">添加成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">14</span></font>．批量增加学生</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员通过<font face="Liberation Serif, serif"><span lang="en-US">excel</span></font>方式批量添加学生基本信息
+		</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/batch/create</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">my_file</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">file</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>需上传以<font face="Liberation Serif, serif"><span lang="en-US">.xls</span></font>结尾的<font face="Liberation Serif, serif"><span lang="en-US">excel</span></font>文件，文件包括学生学号，姓名，性别；电话；紧急联络人；紧急联络人电话；专业代码；专业；年级。</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">批量插入成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">15</span></font>．查询学生</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员查询学生基本信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/editstudent</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">GET
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_code</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>学号</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_name</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>姓名</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">   </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;: [</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;student&quot;: {</code></span></font>
+<code class="cjk">                </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;student_code&quot;: &quot;191101&quot;,</code></span></font>
+<code class="cjk">                </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;name&quot;: &quot;</code></span></font><code class="cjk">张三</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">                </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;sex&quot;: &quot;</code></span></font><code class="cjk">男</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">                </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;phone&quot;: &quot;15166663333&quot;</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">},</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;liaisons&quot;: &quot;</code></span></font><code class="cjk">张三丰</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;liaisons_mobile&quot;: &quot;19199998888&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;college&quot;: &quot;</code></span></font><code class="cjk">美术学院</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;major&quot;: &quot;</code></span></font><code class="cjk">油画专业</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;grade&quot;: &quot;2019&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">],</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;: &quot;&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">json</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">student_code:</span></font>学生学号；<font face="Liberation Serif, serif"><span lang="en-US">name</span></font>：姓名；<font face="Liberation Serif, serif"><span lang="en-US">sex</span></font>：性别；<font face="Liberation Serif, serif"><span lang="en-US">phone</span></font>：电话；<font face="Liberation Serif, serif"><span lang="en-US">liaisons</span></font>：紧急联络人；<font face="Liberation Serif, serif"><span lang="en-US">liaisions_mobile</span></font>：紧急联络人电话；<font face="Liberation Serif, serif"><span lang="en-US">college</span></font>：学院；<font face="Liberation Serif, serif"><span lang="en-US">major</span></font>：专业；<font face="Liberation Serif, serif"><span lang="en-US">grade</span></font>：年级</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">16</span></font>．删除学生</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员删除学生 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/editstudent</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">DELETE
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_code</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>学号</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_name</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>姓名</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">   </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">删除成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;: &quot;&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">17</span></font>．修改学生</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员修改学生手机号 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/editstudent</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">PUT
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_code</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>学号</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_name</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>姓名</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">new_mobile</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>新手机号</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">   </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">修改成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;: &quot;&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">18</span></font>．按院系导出学生</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员按院系导出学生信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/export/college</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">college_code</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系代码</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">college_name</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>院系名称</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">19</span></font>．按年级导出学生</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员按年级导出学生信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/export/grade</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">grade</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>年级</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">20</span></font>．按性别导出学生</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>学校管理员按性别导出学生信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/export/sex</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">sex</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>性别</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h3 style="margin-left: 0.53cm">基础设施管理员功能：</h3>
+<h4 style="margin-left: 0.53cm">１．增加宿舍楼</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>基础设施管理员添加宿舍楼信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editbuild</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">buildname</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍楼名称</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:”</code></span></font><code class="cjk">添加成功“</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">２．删除宿舍楼</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>基础设施管理员删除宿舍楼信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editbuild</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">DELETE
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">buildid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍楼<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:”</code></span></font><code class="cjk">删除成功“</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">３．修改宿舍楼</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>基础设施管理员修改宿舍楼名称 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editbuild</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">PUT
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">buildid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">int</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍楼<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">buildname</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍楼名称</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:”</code></span></font><code class="cjk">修改成功“</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">４．查询宿舍楼</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>基础设施管理员查询全部宿舍楼信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editbuild</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">GET
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<p style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">-</span></font>无</p>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:”</code></span></font><code class="cjk">修改成功“</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">５．增加宿舍</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>基础设施管理员添加宿舍信息 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editroom</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">roomno</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍号</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">buildid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍楼<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">roomtype</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍楼类型　０：四人间；１：六人间；２：八人间</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:”</code></span></font><code class="cjk">添加成功“</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">６．查询宿舍信息</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>用于查询每栋宿舍楼全部宿舍的基本信息，包括宿舍所属的宿舍楼，宿舍号，宿舍类型，宿舍床位的详细描述信息
+		</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editroom</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">GET
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">buildid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍楼<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;: [</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;:1,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;build_name&quot;: &quot;</code></span></font><code class="cjk">西区</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-1</code></span></font><code class="cjk">号楼</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;room_id&quot;: &quot;101&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;room_type&quot;: &quot;</code></span></font><code class="cjk">四人间</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;desc&quot;: &quot;1-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;2-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;3-191101-</code></span></font><code class="cjk">张三</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;4-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">},</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;:2,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;build_name&quot;: &quot;</code></span></font><code class="cjk">西区</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-1</code></span></font><code class="cjk">号楼</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;room_id&quot;: &quot;102&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;room_type&quot;: &quot;</code></span></font><code class="cjk">六人间</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;desc&quot;: &quot;1-191101-</code></span></font><code class="cjk">张三</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;2-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;3-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;4-191101-</code></span></font><code class="cjk">张三</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;5-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;6-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">],</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">json</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">id</span></font>：宿舍<font face="Liberation Serif, serif"><span lang="en-US">id</span></font>；<font face="Liberation Serif, serif"><span lang="en-US">build_name</span></font>：宿舍楼；<font face="Liberation Serif, serif"><span lang="en-US">room_id</span></font>：宿舍号；<font face="Liberation Serif, serif"><span lang="en-US">room_type</span></font>：宿舍类型；<font face="Liberation Serif, serif"><span lang="en-US">desc</span></font>：宿舍床位详细描述</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">７．删除宿舍</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>基础设施管理员误填宿舍信息后，需将之删除。删除后重新进行添加
+		</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editroom</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">DELETE
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">roomid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:&quot;</code></span></font><code class="cjk">删除成功</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">８．增加床号</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>基础设施管理员添加宿舍床位号 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../college/editbed</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">buildid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍楼<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">roomid</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">bed_num</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>床位号</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:”</code></span></font><code class="cjk">添加成功“</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h3 style="margin-left: 0.53cm">导员功能：</h3>
+<h4 style="margin-left: 0.53cm">１．分配宿舍</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>导员对新入学的学生进行宿舍分配安排 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/bingbuild</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">POST
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_code</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>学生学号</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_name</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>学生姓名</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">build_id</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍楼<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">room_id</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>宿舍<font face="Liberation Serif, serif"><span lang="en-US">id</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">bed_number</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>床位号</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:”</code></span></font><code class="cjk">绑定宿舍成功“</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">２．退宿</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>导员对需要退宿的学生进行退宿处理，或者学生需要调换宿舍的学生，先进行退宿。
+		</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/bingbuild</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">DELETE
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">必选</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p align="left">类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_code</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>学生学号</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">student_name</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left">是</p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>学生姓名</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:”</code></span></font><code class="cjk">退宿成功“</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>成功提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+<h4 style="margin-left: 0.53cm">３．查询宿舍</h4>
+<p style="margin-left: 0.53cm"><strong>简要描述：</strong></p>
+<ul>
+	<li/>
+<p>导员对某一宿舍信息进行查询 
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求<font face="Liberation Serif, serif"><span lang="en-US">URL</span></font>：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US"><code class="western">http://.../student/bingbuild</code>
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>请求方式：</strong></p>
+<ul>
+	<li/>
+<p><font face="Liberation Serif, serif"><span lang="en-US">GET
+	</span></font>
+	</p>
+</ul>
+<p style="margin-left: 0.53cm"><strong>参数：</strong></p>
+<p style="margin-left: 0.53cm"><font face="Liberation Serif, serif"><span lang="en-US">-</span></font>无</p>
+<p style="margin-left: 0.53cm"><strong>返回示例</strong></p>
+<pre class="cjk" style="margin-left: 0.53cm"><code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;result&quot;: true,</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;data&quot;:[</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">{</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;id&quot;: 1,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;build_name&quot;: &quot;</code></span></font><code class="cjk">西区</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-1</code></span></font><code class="cjk">号楼</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;room_id&quot;: &quot;101&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;room_type&quot;: &quot;</code></span></font><code class="cjk">四人间</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;,</code></span></font>
+<code class="cjk">            </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;desc&quot;: &quot;1-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;2-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;3-191101-</code></span></font><code class="cjk">张三</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;4-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">-</code></span></font><code class="cjk">空</code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">;&quot;</code></span></font>
+<code class="cjk">        </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">]</code></span></font>
+<code class="cjk">    </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">&quot;error&quot;:&quot;&quot;</code></span></font>
+<code class="cjk">  </code><font face="Liberation Mono, monospace"><span lang="en-US"><code class="western">}</code></span></font></pre><p style="margin-left: 0.53cm">
+<strong>返回参数说明<font face="Liberation Serif, serif"><span lang="en-US">:</strong>
+</span></font>
+</p>
+<dl>
+	<dd>
+	<table cellpadding="2" cellspacing="2">
+		<thead>
+			<tr bgcolor="#0088cc">
+				<th style="border: none; padding: 0cm">
+					<p align="left">参数名</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>类型</p>
+				</th>
+				<th style="border: none; padding: 0cm">
+					<p>说明</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">result</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">bool</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">true/false</span></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">data</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">json</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">id</span></font>：宿舍<font face="Liberation Serif, serif"><span lang="en-US">id</span></font>；<font face="Liberation Serif, serif"><span lang="en-US">build_name</span></font>：宿舍楼；<font face="Liberation Serif, serif"><span lang="en-US">room_id</span></font>：宿舍号；<font face="Liberation Serif, serif"><span lang="en-US">room_type</span></font>：宿舍类型；<font face="Liberation Serif, serif"><span lang="en-US">desc</span></font>：宿舍详细描述</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: none; padding: 0cm">
+					<p align="left"><font face="Liberation Serif, serif"><span lang="en-US">error</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p><font face="Liberation Serif, serif"><span lang="en-US">string</span></font></p>
+				</td>
+				<td style="border: none; padding: 0cm">
+					<p>错误提示信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</dl>
+<p style="margin-left: 0.53cm"><strong>备注</strong> 
+</p>
+<ul>
+	<li/>
+<p>更多返回错误代码请看首页的错误代码描述 
+	</p>
+</ul>
+</body>
+</html>
