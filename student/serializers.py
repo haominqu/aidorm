@@ -7,21 +7,31 @@ class StudentSerializer(serializers.ModelSerializer):
     def sex_field(self, obj):
         return obj.get_sex()
 
+    student_code = serializers.SerializerMethodField('code_field')
+    def code_field(self, obj):
+        return obj.studentid
+
     class Meta:
         model = Student
-        fields = ('id', 'studentid', 'name', 'sex', 'phone')
+        fields = ('student_code', 'name', 'sex', 'phone')
 
 
 class StudentDetailSerializer(serializers.ModelSerializer):
-    student = serializers.SerializerMethodField('student_field')
+    student = StudentSerializer(many=False, read_only=True)
+
     major = serializers.SerializerMethodField('major_field')
-
-    def student_field(self, obj):
-        return obj.get_student()
-
     def major_field(self, obj):
         return obj.get_major()
 
+    college = serializers.SerializerMethodField('college_field')
+    def college_field(self, obj):
+        return obj.get_college()
+
+    grade = serializers.SerializerMethodField('grade_field')
+    def grade_field(self, obj):
+        return obj.get_grade()
+
     class Meta:
         model = StudentDetail
-        fields = ('id', 'liaisons', 'liaisons_mobile', 'student', 'major', 'dormitory')
+        fields = ('student', 'liaisons', 'liaisons_mobile', 'college', 'major', 'grade')
+

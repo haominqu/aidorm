@@ -6,4 +6,7 @@ from .models import *
 
 admin.site.register(DormBuild)
 admin.site.register(DormRoom)
+admin.site.register(BedNumber)
+admin.site.register(AccessRecords)
+admin.site.register(TemporaryPersonRecords)
 

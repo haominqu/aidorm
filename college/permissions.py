@@ -19,7 +19,6 @@ class IsSchoolAdmin(permissions.BasePermission):
     def has_permission(self, request, view):
 
         token = request.META.get("HTTP_AUTHORIZATION", "")
-        print(token)
         if token == "":
             return False
         token = token.split(' ')

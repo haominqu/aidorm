@@ -1,6 +1,6 @@
 from django.db import models
 from college.models import *
-from dormitory.models import DormRoom
+
 
 # Create your models here.
 
@@ -16,8 +16,8 @@ class Student(models.Model):
     name = models.CharField(verbose_name='姓名', max_length=50)
     sex = models.IntegerField(verbose_name='性别', choices=SEX_CHOICES, default=0)
     phone = models.CharField(verbose_name='联系电话', max_length=13, null=False)
-    face = models.CharField(verbose_name='人脸', max_length=50)
-    finger = models.CharField(verbose_name='指纹', max_length=50)
+    face = models.CharField(verbose_name='人脸', max_length=50, null=True, blank=True)
+    finger = models.CharField(verbose_name='指纹', max_length=50, null=True, blank=True)
     isGraduate = models.BooleanField(verbose_name='是否为毕业生', default=False)
 
     def __str__(self):
@@ -41,7 +41,6 @@ class StudentDetail(models.Model):
     student = models.OneToOneField(Student, verbose_name='学生信息')
     major = models.ForeignKey(Major, verbose_name='专业信息')
     grade = models.ForeignKey(Grade, verbose_name='年级')
-    dormitory = models.ForeignKey(DormRoom, verbose_name='所在宿舍')
 
     def __str__(self):
         return self.student.studentid
@@ -51,6 +50,12 @@ class StudentDetail(models.Model):
 
     def get_major(self):
         return self.major.major_name
+
+    def get_college(self):
+        return self.major.college.college_name
+
+    def get_grade(self):
+        return self.grade.grade
 
     class Meta:
         db_table = 'StudentDetail'

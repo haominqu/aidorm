@@ -16,7 +16,7 @@ class MajorSerializer(serializers.ModelSerializer):
 
     college = serializers.SerializerMethodField('college_field')
     def college_field(self, obj):
-        return obj.college.college_name
+        return obj.get_college()
 
 
 class GradeSerializer(serializers.ModelSerializer):
@@ -26,3 +26,23 @@ class GradeSerializer(serializers.ModelSerializer):
         fields = ('id', 'grade')
 
 
+class GlassSerializer(serializers.ModelSerializer):
+    college = serializers.SerializerMethodField('college_field')
+    def college_field(self, obj):
+        return obj.major.college.college_name
+
+    major = serializers.SerializerMethodField('major_field')
+    def major_field(self, obj):
+        return obj.major.major_name
+
+    grade = serializers.SerializerMethodField('grade_field')
+    def grade_field(self, obj):
+        return obj.grade.grade
+
+    guide = serializers.SerializerMethodField('guide_field')
+    def guide_field(self, obj):
+        return obj.guide.username
+
+    class Meta:
+        model = ClassInfo
+        fields = ('id', 'college', 'major', 'grade', 'class_name', 'guide')

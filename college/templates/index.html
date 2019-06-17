@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+{# <script type="text/javascript">#}
+{#     function upto() {#}
+{#         var formData = new FormData();#}
+{#         var name = $("#file1").val();#}
+{#         formData.append("file",$("#file1")[0].files[0]);#}
+{#         formData.append("name",name);#}
+{#         console.log(formData);#}
+{#         $.ajax({#}
+{#             url:'/college/batchinsert/',#}
+{#             type:'get',#}
+{#             contentType: "application/x-www-form-urlencoded; charset=utf-8",#}
+{#             data: formData,#}
+{#             processData:false,#}
+{#             contentType : false,#}
+{#             success:function () {#}
+{#                 console.log('success');#}
+{#             },#}
+{#             error:function () {#}
+{#                 console.log('error');#}
+{#             }#}
+{#         })#}
+{#     }#}
+{# </script>#}
+{# <form action="">#}
+{#<input type="file" name="file1" id="file1">#}
+{#<input type="button" value="上传" onclick="upto()">#}
+{#</form>#}
+
+</body>
+<form action="{% url 'batch_create' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <input type="file" name="my_file">
+        <input type="submit">
+    </form>
+
+
+
+
+</body>
+</html>

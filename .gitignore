@@ -7,4 +7,7 @@ college/__pycache__/*
 dormitory/__pycache__/*
 student/__pycache__/*
 usercenter/__pycache__/*
-aidorm/settings.py
+exportcollege.xls
+exportgrade.xls
+exportsex.xls
+
