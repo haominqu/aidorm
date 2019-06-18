@@ -33,7 +33,7 @@ class Major(models.Model):
 
 
 class Grade(models.Model):
-    grade = models.CharField(verbose_name='年级', max_length=30)
+    grade = models.CharField(verbose_name='年级', max_length=30, unique=True)
 
     def __str__(self):
         return self.grade
@@ -48,6 +48,7 @@ class ClassInfo(models.Model):
     major = models.ForeignKey(Major, verbose_name='专业')
     grade = models.ForeignKey(Grade, verbose_name='年级')
     class_name = models.CharField(verbose_name='班级', max_length=50)
+    class_code = models.CharField(verbose_name='班级编码', max_length=30, unique=True, null=False, blank=False)
     guide = models.ForeignKey(UserInfo, verbose_name='导员')
 
     def __str__(self):

@@ -40,6 +40,7 @@ class StudentDetail(models.Model):
     liaisons_mobile = models.CharField(verbose_name='紧急联络人电话', max_length=20)
     student = models.OneToOneField(Student, verbose_name='学生信息')
     major = models.ForeignKey(Major, verbose_name='专业信息')
+    class_info = models.ForeignKey(ClassInfo, verbose_name='班级')
     grade = models.ForeignKey(Grade, verbose_name='年级')
 
     def __str__(self):
