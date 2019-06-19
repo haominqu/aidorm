@@ -1,5 +1,6 @@
 from django.db import models
 from college.models import *
+from django.utils.html import format_html
 
 
 # Create your models here.
@@ -16,7 +17,8 @@ class Student(models.Model):
     name = models.CharField(verbose_name='姓名', max_length=50)
     sex = models.IntegerField(verbose_name='性别', choices=SEX_CHOICES, default=0)
     phone = models.CharField(verbose_name='联系电话', max_length=13, null=False)
-    face = models.CharField(verbose_name='人脸', max_length=50, null=True, blank=True)
+    face = models.ImageField(verbose_name='人脸', upload_to='img/face', default="a.png", null=True, blank=True)
+    # face = models.CharField(verbose_name='人脸', max_length=50, null=True, blank=True)
     finger = models.CharField(verbose_name='指纹', max_length=50, null=True, blank=True)
     isGraduate = models.BooleanField(verbose_name='是否为毕业生', default=False)
 
@@ -28,6 +30,11 @@ class Student(models.Model):
             return u'男'
         else:
             return u'女'
+
+    def image_data(self):
+        return format_html(
+            '<img src="{}" width="60%"/>', self.face,
+        )
 
     class Meta:
         db_table = 'Student'
@@ -57,6 +64,9 @@ class StudentDetail(models.Model):
 
     def get_grade(self):
         return self.grade.grade
+
+    def get_class_info(self):
+        return self.class_info.class_name
 
     class Meta:
         db_table = 'StudentDetail'
