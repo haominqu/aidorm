@@ -9,4 +9,5 @@ admin.site.register(DormRoom)
 admin.site.register(BedNumber)
 admin.site.register(AccessRecords)
 admin.site.register(TemporaryPersonRecords)
+admin.site.register(FaceMachine)
 

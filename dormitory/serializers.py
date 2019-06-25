@@ -57,3 +57,26 @@ class AccessRecordSerializer(serializers.ModelSerializer):
         model = AccessRecords
         fields = ('student_code', 'student_name', 'enter_time', 'entry_time')
 
+
+class FaceMachineSerializer(serializers.ModelSerializer):
+    build = BuildSerializer(many=False, read_only=True)
+
+    machine_status = serializers.SerializerMethodField('machine_status_field')
+
+    def machine_status_field(self, obj):
+        machinestatus = obj.machine_status
+        if machinestatus == 0:
+            status = "未激活"
+        elif machinestatus == 1:
+            status = "运行中"
+        elif machinestatus == 2:
+            status = "维修中"
+        elif machinestatus == 3:
+            status = "待检查"
+        elif machinestatus == 4:
+            status = "关闭"
+        return status
+
+    class Meta:
+        model = FaceMachine
+        fields = ('id', 'build', 'machine_no', 'machine_status')

@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^userinfo/', include('usercenter.urls')),
     url(r'^college/', include('college.urls')),
     url(r'^dormitory/', include('dormitory.urls')),
+    url(r'^afadoor/', include('afadoor.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
