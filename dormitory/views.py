@@ -214,7 +214,7 @@ class BedEdit(APIView):
 class EnterRecordView(APIView):
     def post(self, request):
         student_code = request.POST.get("student_code", "")
-        enter_time_str = request.POST.get("enter_time", "")
+        enter_time_str = request.POST.get("enter_time", "")[:19]
         # enter_time 是一个日期格式的字符串，形式示例：2016-05-09 21:09:30
         if student_code == "" or enter_time_str == "":
             result = False
@@ -229,6 +229,7 @@ class EnterRecordView(APIView):
             data = ""
             error = "未查询到该学生信息"
             return JsonResponse({"result": result, "data": data, "error": error})
+
         try:
             enter_time = datetime.datetime.strptime(enter_time_str, "%Y-%m-%d %H:%M:%S")
         except ValueError as e:
@@ -237,9 +238,7 @@ class EnterRecordView(APIView):
             data = ""
             error = "参数格式有误"
             return JsonResponse({"result": result, "data": data, "error": error})
-        time_str = time.time.strptime(enter_time_str[11:], "%H:%M:%S")
-        print(time_str)
-        latest_time = "23:00:00"
+
         try:
             AccessRecords.objects.create(student=student, enter_time=enter_time)
         except ObjectDoesNotExist as e:
@@ -327,7 +326,7 @@ class TemportaryPersonEntry(APIView):
         student_code = request.POST.get("student_code", "")
         student_name = request.POST.get("student_name", "")
         name = request.POST.get("name", "")
-        entry_time = request.POST.get("entry_time", "")
+        entry_time = request.POST.get("entry_time",  "")
         if student_code == "" or student_name == "" or name == "" or entry_time == "":
             result = False
             data = ""
@@ -421,7 +420,6 @@ class LongTimeEnter(APIView):
             data = ""
             error = "该同学正常出入宿舍"
             return JsonResponse({"result": result, "data": data, "error": error})
-
 
 
 class LongTimeEntry(APIView):
@@ -537,8 +535,57 @@ class EnterTimeLate(APIView):
         pass
 
 
+class FaceMachineView(APIView):
+
+    def post(self, request):
+        build_id = request.POST.get("buildid", "")
+        machine_no = request.POST.get("machine_no", "")
+        machine_status = 0
+        try:
+            machine = FaceMachine.objects.create(build_id=build_id, machine_no=machine_no, machine_status=machine_status)
+        except ObjectDoesNotExist as e:
+            logger.error(e)
+        result = True
+        data = "添加成功"
+        error = ''
+        return  JsonResponse({"result": result, "data": data, "error": error})
 
 
+    def get(self, request):
+        build_id = request.GET.get("buildid", "")
+        machine_no = request.GET.get("machine_no", "")
+        if build_id=='' and machine_no=='':
+            machines = FaceMachine.objects.all()
+        elif build_id=='' and machine_no!='':
+            machines = FaceMachine.objects.filter(machine_no=machine_no)
+        elif build_id!='' and machine_no=='':
+            machines = FaceMachine.objects.filter(build_id=build_id)
+        machines_data = FaceMachineSerializer(machines, many=True)
+        machines_data = machines_data.data
+        result = True
+        data = machines_data
+        error = ''
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+
+    def delete(self, request):
+        machine_id = request.data.get("machine_id", "")
+        face_machine = FaceMachine.objects.filter(id=machine_id).update(machine_status=4)
+        result = True
+        data = '删除成功'
+        error = ''
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+
+class Machine_Fix(APIView):
+
+    def put(self, request):
+        machine_id = request.data.get("machine_id", "")
+        face_machine = FaceMachine.objects.filter(id=machine_id).update(machine_status=1)
+        result = True
+        data = '删除成功'
+        error = ''
+        return JsonResponse({"result": result, "data": data, "error": error})
 
 
 

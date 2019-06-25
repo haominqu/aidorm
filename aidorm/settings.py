@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'college',
     'corsheaders',
     'rest_framework',
+    'afadoor',
 ]
 
 MIDDLEWARE = [

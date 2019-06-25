@@ -10,6 +10,14 @@ TYPE_CHOICES = (
     (2, '八人间'),
 )
 
+MACHINE_STATUS_CHOICES = (
+    (0, '未激活'),
+    (1, '运行中'),
+    (2, '维修中'),
+    (3, '待检查'),
+    (4, '关闭'),
+)
+
 
 class DormBuild(models.Model):
     buildname = models.CharField(verbose_name='宿舍楼名称', max_length=50)
@@ -54,7 +62,7 @@ class DormRoom(models.Model):
 class BedNumber(models.Model):
     room = models.ForeignKey(DormRoom, verbose_name='所属宿舍')
     bed_num = models.IntegerField(verbose_name='床位号')
-    student = models.ForeignKey(Student, verbose_name='学生', null=True, blank=True)
+    student = models.OneToOneField(Student, verbose_name='学生',related_name='stu', null=True, blank=True)
 
     def __str__(self):
         if self.student == None:
@@ -96,4 +104,18 @@ class TemporaryPersonRecords(models.Model):
 
     class Meta:
         verbose_name = '临时人员登记表'
+        verbose_name_plural = verbose_name
+
+
+class FaceMachine(models.Model):
+    build = models.ForeignKey(DormBuild, verbose_name='所属宿舍楼')
+    machine_no = models.CharField(verbose_name='设备编号', max_length=13, default='m0000000')
+    machine_status = models.IntegerField(verbose_name='设备状态', choices=MACHINE_STATUS_CHOICES, default=0)
+    machine_ip = models.CharField(verbose_name='设备IP ', max_length=50, default='m0000000')
+
+    def __str__(self):
+        return self.machine_no
+
+    class Meta:
+        verbose_name = '识别设备表'
         verbose_name_plural = verbose_name
