@@ -19,6 +19,7 @@ import logging
 import xlrd
 import xlwt
 import io
+import zipfile
 
 # Create your views here.
 
@@ -52,17 +53,37 @@ class StudentEdit(APIView):
         student_name = request.POST.get('student_name', '')
         gender = request.POST.get('gender', '')
         phone = request.POST.get('phone', '')
+        face_picture = request.FILES.get('face_picture', '')
         liaisons = request.POST.get('liaisons', '')
         liaisons_mobile = request.POST.get('liaisons_mobile', '')
-        major_code = request.POST.get('major_code', '')
-        grade = request.POST.get('grade', '')
-        if student_code=='' or student_name=='' or gender=='' or phone=='' or liaisons=='' or liaisons_mobile=='' or major_code=='' or grade=='':
+        major_id = request.POST.get('major_id', '')
+        class_id = request.POST.get('class_id', '')
+        grade_id = request.POST.get('grade_id', '')
+        if student_code=='' or student_name=='' or gender=='' or phone=='' or face_picture == '' or liaisons=='' or liaisons_mobile=='' or major_id=='' or grade_id=='' or class_id=='':
             result = False
             data = ""
             error = "信息不能为空"
             return JsonResponse({"result": result, "data": data, "error": error})
+        major = Major.objects.filter(id=major_id)
+        if not major:
+            result = False
+            data = ""
+            error = "请输入正确专业信息"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        class_info = ClassInfo.objects.filter(id=class_id)
+        if not class_info:
+            result = False
+            data = ""
+            error = "请输入正确班级信息"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        grade = Grade.objects.filter(id=grade_id)
+        if not grade:
+            result = False
+            data = ""
+            error = "请输入正确年级信息"
+            return JsonResponse({"result": result, "data": data, "error": error})
         try:
-            newstudent = Student.objects.create(studentid=student_code, name=student_name, sex=gender, phone=phone)
+            new_student = Student.objects.create(studentid=student_code, name=student_name, sex=gender, phone=phone, face=face_picture)
         except ObjectDoesNotExist as e:
             logging.warning(e)
             result = False
@@ -70,12 +91,10 @@ class StudentEdit(APIView):
             error = "添加学生失败"
             return JsonResponse({"result": result, "data": data, "error": error})
         try:
-            major = Major.objects.filter(major_code=major_code)
-            grade = Grade.objects.filter(grade=grade)
-            StudentDetail.objects.create(liaisons=liaisons, liaisons_mobile=liaisons_mobile, student=newstudent, major=major, grade=grade)
+            StudentDetail.objects.create(liaisons=liaisons, liaisons_mobile=liaisons_mobile, student=new_student, major=major[0], grade=grade[0], class_info=class_info[0])
         except ObjectDoesNotExist as e:
             logging.warning(e)
-            newstudent.delete()
+            new_student.delete()
             result = False
             data = ""
             error = "添加学生失败"
@@ -131,83 +150,101 @@ class StudentEdit(APIView):
 
 class BatchCreateView(APIView):
     def post(self, request):
-        f = request.FILES['my_file']
-        type_excel = f.name.split('.')[1]
-        if 'xls' == type_excel:
-            wb = xlrd.open_workbook(filename=None, file_contents=f.read())
-            table = wb.sheets()[0]
-            nrows = table.nrows
-            student_base_list = list()
-            student_detail_list = list()
-            student_detail_info = list()
-            students_codes = list()
-            with transaction.atomic():
-                for i in range(1, nrows):
-                    rowValues = table.row_values(i)  # 一行的数据
-                    students_codes.append(rowValues[0])
-                    if rowValues[2] == u'男':
-                        rowValues[2] = 0
-                    elif rowValues[2] == u'女':
-                        rowValues[2] = 1
-                    else:
-                        rowValues[2] = rowValues[2]
-                    student_base_list.append(Student(studentid=str(int(rowValues[0])), name=rowValues[1], sex=rowValues[2], phone=str(int(rowValues[3]))))
-                    student_detail = {}
-                    student_detail['student_code'] = str(int(rowValues[0]))
-                    student_detail['name'] = rowValues[1]
-                    student_detail['liaisons'] = rowValues[4]
-                    student_detail['liaisons_mobile'] = str(int(rowValues[5]))
-                    student_detail['major_code'] = str(int(rowValues[6]))
-                    student_detail['major'] = rowValues[7]
-                    student_detail['grade'] = str(int(rowValues[8]))
-                    student_detail_info.append(student_detail)
-                try:
-                    Student.objects.bulk_create(student_base_list)
-                except ObjectDoesNotExist as e:
-                    logger.error(e)
-                    result = False
-                    data = ""
-                    error = "批量插入学生失败"
-                    return JsonResponse({"result": result, "data": data, "error": error})
-                for student_detail in student_detail_info:
-                    student_code = student_detail['student_code']
-                    name = student_detail['name']
-                    liaisons = student_detail['liaisons']
-                    liaisons_mobile = student_detail['liaisons_mobile']
-                    major_code = student_detail['major_code']
-                    major = student_detail['major']
-                    grade = student_detail['grade']
-                    try:
-                        student = Student.objects.filter(studentid=student_code, name=name)
-                        major = Major.objects.filter(major_id=major_code, major_name=major)
-                        grade = Grade.objects.filter(grade=grade)
-                    except ObjectDoesNotExist as e:
-                        logger.warning(e)
-                        result = False
-                        data = ""
-                        error = "格式不正确"
-                        return JsonResponse({"result": result, "data": data, "error": error})
-                    student_detail_list.append(
-                        StudentDetail(liaisons=liaisons, liaisons_mobile=liaisons_mobile, student_id=student[0].id,
-                                      major_id=major[0].id,
-                                      grade_id=grade[0].id))
-                try:
-                    StudentDetail.objects.bulk_create(student_detail_list)
-                except ObjectDoesNotExist as e:
-                    # Student.objects.extra(where=["studentid in students_codes"]).delete()
-                    logger.error(e)
-                    result = False
-                    data = ""
-                    error = "批量插入学生失败"
-                    return JsonResponse({"result": result, "data": data, "error": error})
-                result = True
-                data = "批量插入学生成功"
-                error = ""
+        file_excel = request.FILES.get("student_excel", "")
+        file_zip = request.FILES.get("face_zip", "")
+        excel_type = file_excel.name.split('.')[1]
+        zip_type = file_zip.name.split('.')[1]
+        zip_name = file_zip.name.split('.')[0]
+        if excel_type != 'xls' or zip_type != 'zip':
+            result = False
+            data = ""
+            error = "上传文件格式不符合格式"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        wb = xlrd.open_workbook(filename=None, file_contents=file_excel.read())
+        table = wb.sheets()[0]
+        nrows = table.nrows
+        student_base_list = list()
+        student_detail_list = list()
+        student_detail_info = list()
+        students_codes = list()
+        with transaction.atomic():
+            for i in range(1, nrows):
+                rowValues = table.row_values(i)  # 一行的数据
+                students_codes.append(rowValues[0])
+                if rowValues[2] == u'男':
+                    rowValues[2] = 0
+                elif rowValues[2] == u'女':
+                    rowValues[2] = 1
+                else:
+                    rowValues[2] = rowValues[2]
+                student_base_list.append(Student(studentid=str(int(rowValues[0])), name=rowValues[1], sex=rowValues[2], phone=str(int(rowValues[3]))))
+                student_detail = {}
+                student_detail['student_code'] = str(int(rowValues[0]))
+                student_detail['name'] = rowValues[1]
+                student_detail['liaisons'] = rowValues[4]
+                student_detail['liaisons_mobile'] = str(int(rowValues[5]))
+                student_detail['major_code'] = str(int(rowValues[6]))
+                student_detail['major'] = rowValues[7]
+                student_detail['grade'] = rowValues[8]
+                student_detail['class_info'] = rowValues[9]
+                student_detail_info.append(student_detail)
+            try:
+                Student.objects.bulk_create(student_base_list)
+            except ObjectDoesNotExist as e:
+                logger.error(e)
+                result = False
+                data = ""
+                error = "批量插入学生失败"
                 return JsonResponse({"result": result, "data": data, "error": error})
-        result = False
-        data = ""
-        error = "上传文件格式不是xls"
+            for student_detail in student_detail_info:
+                student_code = student_detail['student_code']
+                name = student_detail['name']
+                liaisons = student_detail['liaisons']
+                liaisons_mobile = student_detail['liaisons_mobile']
+                major_code = student_detail['major_code']
+                major = student_detail['major']
+                grade = student_detail['grade']
+                class_info = student_detail['class_info']
+                try:
+                    student = Student.objects.filter(studentid=student_code, name=name)
+                    major = Major.objects.filter(major_id=major_code, major_name=major)
+                    grade = Grade.objects.filter(grade=grade)
+                    class_info = ClassInfo.objects.filter(class_name=class_info)
+                except ObjectDoesNotExist as e:
+                    logger.warning(e)
+                    result = False
+                    data = ""
+                    error = "格式不正确"
+                    return JsonResponse({"result": result, "data": data, "error": error})
+                student_detail_list.append(
+                    StudentDetail(liaisons=liaisons, liaisons_mobile=liaisons_mobile, student_id=student[0].id,
+                                  major_id=major[0].id,
+                                  grade_id=grade[0].id, class_info_id=class_info[0].id))
+            try:
+                StudentDetail.objects.bulk_create(student_detail_list)
+            except ObjectDoesNotExist as e:
+                # Student.objects.extra(where=["studentid in students_codes"]).delete()
+                logger.error(e)
+                result = False
+                data = ""
+                error = "批量插入学生失败"
+                return JsonResponse({"result": result, "data": data, "error": error})
+        file_zip = zipfile.ZipFile(file_zip, 'r')
+        save_path = os.getcwd()
+        file_zip.extractall(save_path + "/media/")  # 解压缩
+        for file in os.listdir(save_path + "/media/" + zip_name):
+            image_type = file.split('.')[1]
+            if image_type == "png" or image_type == "jpg" or image_type == "jpeg":
+                image_name = file.split('.')[0]
+                student = Student.objects.filter(studentid=image_name)
+                if not student:
+                    continue
+                student.update(face=zip_name+"/"+image_name+"."+image_type)
+        result = True
+        data = "批量插入学生成功"
+        error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
+
 
 
 class ExportCollegeView(APIView):
@@ -236,6 +273,7 @@ class ExportCollegeView(APIView):
         sheet.write(0, 5, label='紧急联络人电话')
         sheet.write(0, 6, label='专业')
         sheet.write(0, 7, label='年级')
+        sheet.write(0, 8, label='班级')
         for major in majors:
             student = StudentDetail.objects.filter(major=major)
             students_data = StudentDetailSerializer(student, many=True)
@@ -251,6 +289,7 @@ class ExportCollegeView(APIView):
                 liaisons_mobile = data['liaisons_mobile']
                 major = data['major']
                 grade = data['grade']
+                class_info = data['class_info']
                 student_list_a.append(student_code)
                 student_list_a.append(name)
                 student_list_a.append(sex)
@@ -259,6 +298,7 @@ class ExportCollegeView(APIView):
                 student_list_a.append(liaisons_mobile)
                 student_list_a.append(major)
                 student_list_a.append(grade)
+                student_list_a.append(class_info)
                 student_list.append(student_list_a)
             for row in range(0, len(student_list)):
                 column = 0
@@ -309,6 +349,7 @@ class ExportGradeView(APIView):
         sheet.write(0, 5, label='紧急联络人电话')
         sheet.write(0, 6, label='专业')
         sheet.write(0, 7, label='年级')
+        sheet.write(0, 8, label='班级')
         for data in students_data:
             student_list_a = list()
             student_code = data['student']['student_code']
@@ -319,6 +360,7 @@ class ExportGradeView(APIView):
             liaisons_mobile = data['liaisons_mobile']
             major = data['major']
             grade = data['grade']
+            class_info = data['class_info']
             student_list_a.append(student_code)
             student_list_a.append(name)
             student_list_a.append(sex)
@@ -327,6 +369,7 @@ class ExportGradeView(APIView):
             student_list_a.append(liaisons_mobile)
             student_list_a.append(major)
             student_list_a.append(grade)
+            student_list_a.append(class_info)
             student_list.append(student_list_a)
         for row in range(0, len(student_list)):
             column = 0
@@ -378,6 +421,7 @@ class ExportSexView(APIView):
         sheet.write(0, 5, label='紧急联络人电话')
         sheet.write(0, 6, label='专业')
         sheet.write(0, 7, label='年级')
+        sheet.write(0, 8, label='班级')
         student_list = list()
         for student in students:
             student_list_a = list()
@@ -392,6 +436,7 @@ class ExportSexView(APIView):
             liaisons_mobile = student_data[0]['liaisons_mobile']
             major = student_data[0]['major']
             grade = student_data[0]['grade']
+            class_info = student_data[0]['class_info']
             student_list_a.append(student_code)
             student_list_a.append(name)
             student_list_a.append(sex)
@@ -400,6 +445,7 @@ class ExportSexView(APIView):
             student_list_a.append(liaisons_mobile)
             student_list_a.append(major)
             student_list_a.append(grade)
+            student_list_a.append(class_info)
             student_list.append(student_list_a)
         for row in range(0, len(student_list)):
             column = 0
@@ -407,7 +453,7 @@ class ExportSexView(APIView):
             for info in infos:
                 sheet.write(row + 1, column, info)
                 column += 1
-        # wbk.save('exportsex' + '.xls')
+        wbk.save('exportsex' + '.xls')
         response = HttpResponse(content_type='application/vnd.ms-excel')
         response['Content-Disposition'] = 'attachment; filename=exportcollege.xls'
         return response
@@ -420,34 +466,32 @@ class ExportSexView(APIView):
         # error = ""
         # return JsonResponse({"result": result, "data": data, "error": error})
 
-
-class Face_Collect(APIView):
-
-    def post(self, request):
-        student_code = request.POST.get("student_code", "")
-        student_name = request.POST.get("student_name", "")
-        face_picture = request.POST.get("face_picture", "")
-        if student_code == "" or student_name == "" or face_picture == "":
-            result = False
-            data = ""
-            error = "信息不能为空"
-            return JsonResponse({"result": result, "data": data, "error": error})
-        try:
-            student = Student.objects.get(studentid=student_code, name=student_name)
-        except ObjectDoesNotExist as e:
-            logger.error(e)
-            result = False
-            data = ""
-            error = "学生信息不正确"
-            return JsonResponse({"result": result, "data": data, "error": error})
-        student.studentid = student_name
-        student.name = student_name
-        student.face = face_picture
-        student.save()
-        result = True
-        data = "信息采集成功"
-        error = ""
-        return JsonResponse({"result": result, "data": data, "error": error})
+# import os
+# class Batch_Face(APIView):
+#     def post(self, request):
+#         file_zip = request.FILES.get("file_zip", "")
+#         type_file = file_zip.name.split('.')[1]
+#         file_name = file_zip.name.split('.')[0]
+#         if type_file != "zip":
+#             result = False
+#             data = ""
+#             error = "上传文件格式不是zip"
+#             return JsonResponse({"result": result, "data": data, "error": error})
+#         file_zip = zipfile.ZipFile(file_zip, 'r')
+#         save_path = os.getcwd()
+#         file_zip.extractall(save_path+"/media/")  # 解压缩
+#         for file in os.listdir(save_path+"/media/"+file_name):
+#             image_type = file.split('.')[1]
+#             if image_type == "png" or image_type == "jpg" or image_type == "jpeg":
+#                 image_name = file.split('.')[0]
+#                 student = Student.objects.filter(studentid=image_name)
+#                 if not student:
+#                     continue
+#                 student.update(face=file_name+"/"+image_name+"."+image_type)
+#         result = True
+#         data = ""
+#         error = "ok"
+#         return JsonResponse({"result": result, "data": data, "error": error})
 
 
 class Finger_Collect(APIView):

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'face_collect' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>
+        <b>学号</b>
+        <input type="text" name="student_code">
+    </p>
+    <p>
+        <b>姓名</b>
+        <input type="text" name="student_name">
+    </p>
+    <p>
+        <b>照片</b>
+        <input type="file" name="face_picture" />
+    </p>
+    <input type="submit">
+</form>
+</body>
+</html>

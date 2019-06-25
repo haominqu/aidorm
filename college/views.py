@@ -14,6 +14,7 @@ from django.db import transaction
 from .serializers import *
 from .permissions import *
 from .models import *
+from student.models import *
 
 # base
 import logging
@@ -113,9 +114,17 @@ class MajorEdit(APIView):
     # )
 
     def get(self, request):
+        """
+        默认获取全部专业列表； 院系、专业二级联动
+        param request: collid： 院系id
+        return:
+        """
         collid = request.GET.get("collid", "")
-        college = College.objects.filter(id=collid)
-        major = Major.objects.filter(college=college, isDelete=False)
+        if collid == "":
+            major = Major.objects.filter(isDelete=False)
+        else:
+            college = College.objects.filter(id=collid)
+            major = Major.objects.filter(college=college, isDelete=False)
         majordata = MajorSerializer(major, many=True)
         result = True
         data = majordata.data
@@ -123,6 +132,11 @@ class MajorEdit(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def post(self, request):
+        """
+        新建一个已创建院系的专业
+        param request: collid:院系id; majorcode:专业代码; majorname:专业名称
+        return:
+        """
         collid = request.POST.get("collid", '')
         majorcode = request.POST.get("majorcode", '')
         majorname = request.POST.get("majorname", '')
@@ -260,23 +274,63 @@ class GradeEdit(APIView):
 
 
 
+
 class ClassInfoView(APIView):
+    permission_classes = (
+        IsSchoolAdmin,
+    )
+
+
+    def get(self, request):
+        """
+        默认获取全部班级信息列表； 可按年级、院系筛选班级
+        param request: 院系id 年级id
+        return: id, 班级名称, 年级, 院系, 专业, 导员, 总人数, 是否毕业
+        """
+        college_id = request.GET.get("college_id", "")
+        grade_id = request.GET.get("grade_id", "")
+        if college_id == "" and grade_id == "":
+            all_class = ClassInfo.objects.all()
+        elif college_id == "" and grade_id != "":
+            all_class = ClassInfo.objects.filter(grade_id=grade_id)
+        elif college_id != "" and grade_id == "":
+            all_class = ClassInfo.objects.filter(major__college_id=college_id)
+        elif college_id != "" and grade_id != "":
+            all_class = ClassInfo.objects.filter(major__college_id=college_id, grade_id=grade_id)
+        data = []
+        for per_class in all_class:
+            per_class_ser = GlassSerializer(per_class, many=False)
+            per_class_data = per_class_ser.data
+            total_number = per_class.studentdetail_set.all().count()
+            per_class_data["total_number"] = total_number
+            data.append(per_class_data)
+        result = True
+        data = data
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+
     def post(self, request):
-        major_code = request.POST.get("major_code", "")
+        """
+        创建班级并为班级绑定导员
+        :param request:
+        :return:
+        """
+        college_id = request.POST.get("college_id", "")
+        major_id = request.POST.get("major_id", "")
         grade_id = request.POST.get("grade_id", "")
         class_name = request.POST.get("class_name", "")
         guide_id = request.POST.get("guide_id", "")
-        guide_name = request.POST.get("guide_name", "")
-        if major_code == "" or grade_id == "" or class_name == "" or guide_id == "" or guide_name == "":
+        if college_id == "" or major_id == "" or grade_id == "" or class_name == "" or guide_id == "":
             result = False
             data = ""
             error = "信息不能为空"
             return JsonResponse({"result": result, "data": data, "error": error})
-        major = Major.objects.filter(major_id=major_code)
+        major = Major.objects.filter(id=major_id, college_id=college_id)
         if not major:
             result = False
             data = ""
-            error = "请输入正确专业代码"
+            error = "请输入正确院系专业"
             return JsonResponse({"result": result, "data": data, "error": error})
         grade = Grade.objects.filter(id=grade_id)
         if not grade:
@@ -284,22 +338,136 @@ class ClassInfoView(APIView):
             data = ""
             error = "请输入正确年级"
             return JsonResponse({"result": result, "data": data, "error": error})
-        user = UserInfo.objects.filter(id=guide_id, username=guide_name)
+        user = UserInfo.objects.filter(id=guide_id, is_delete=False)
         if not user:
             result = False
             data = ""
             error = "请输入正确导员"
             return JsonResponse({"result": result, "data": data, "error": error})
         try:
-            ClassInfo.objects.create(major=major[0], grade=grade[0], class_name=class_name, guide=user[0])
+            new_class = ClassInfo.objects.create(major=major[0], grade=grade[0], class_name=class_name, guide=user[0])
         except ObjectDoesNotExist as e:
             logger.error(e)
             result = False
             data = ""
             error = "班级添加失败"
             return JsonResponse({"result": result, "data": data, "error": error})
+        try:
+            class_code = major[0].college.college_id + major[0].major_id + str(new_class.id)
+        except Exception as e:
+            logger.error(e)
+            new_class.delete()
+            result = False
+            data = ""
+            error = "班级添加失败"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        new_class = ClassInfo.objects.filter(id=new_class.id)
+        new_class.update(class_code=class_code)
         result = True
         data = "成功添加班级并绑定导员"
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+    def put(self, request):
+        """
+        修改班级名称，修改班级导员
+        :param request:
+        :return:
+        """
+        class_id = request.data.get("class_id", "")
+        class_name = request.data.get("class_name", "")
+        guide_id = request.data.get("guide_id", "")
+        if class_id == "":
+            result = False
+            data = ""
+            error = "班级不能为空"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        class_one = ClassInfo.objects.filter(id=class_id)
+        if not class_one:
+            result = False
+            data = ""
+            error = "id有误"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        if class_name != "" and guide_id == "":
+            class_one.update(class_name=class_name)
+        elif guide_id != "" and class_name == "":
+            class_one.update(guide_id=guide_id)
+        elif class_name != "" and guide_id != "":
+            class_one.update(class_name=class_name, guide_id=guide_id)
+        elif class_name == "" and guide_id == "":
+            result = False
+            data = ""
+            error = "信息不能为空"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        result = True
+        data = "修改成功"
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+    def delete(self, request):
+        """
+        如果班级信息误填，将其删除；若班级里有学生，不允许删除
+        :param request:
+        :return:
+        """
+        class_id = request.data.get("class_id", "")
+        if class_id == "":
+            result = False
+            data = ""
+            error = "班级不能为空"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        class_graduation = ClassInfo.objects.filter(id=class_id)
+        if not class_graduation:
+            result = False
+            data = ""
+            error = "id有误"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        students = StudentDetail.objects.filter(class_info=class_graduation)
+        if students:
+            result = False
+            data = ""
+            error = "该班级有学生不允许删除"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        class_graduation.delete()
+        result = True
+        data = ""
+        error = "删除成功"
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+
+class AlreadyGraduation(APIView):
+    permission_classes = (
+        IsSchoolAdmin,
+    )
+
+    def delete(self, request):
+        """
+        如果该班级已毕业, 将其状态设定为毕业
+        :param request:
+        :return:
+        """
+        class_id = request.data.get("class_id", "")
+        if class_id == "":
+            result = False
+            data = ""
+            error = "班级不能为空"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        class_graduation = ClassInfo.objects.filter(id=class_id)
+        if not class_graduation:
+            result = False
+            data = ""
+            error = "id有误"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        try:
+            class_graduation.update(is_graduation=True)
+        except ObjectDoesNotExist as e:
+            logger.error(e)
+            result = False
+            data = ""
+            error = "删除失败"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        result = True
+        data = "已毕业"
         error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
 
@@ -341,5 +509,12 @@ class Index(APIView):
         return render(request, 'index.html')
 
 
+class CollectFace(APIView):
+    def get(self, request):
+        return render(request, 'collect_face.html')
 
+
+class BatchFace(APIView):
+    def get(self, request):
+        return render(request, 'batch_face.html')
 

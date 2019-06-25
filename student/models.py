@@ -1,6 +1,5 @@
 from django.db import models
 from college.models import *
-from django.utils.html import format_html
 
 
 # Create your models here.
@@ -31,10 +30,6 @@ class Student(models.Model):
         else:
             return u'女'
 
-    def image_data(self):
-        return format_html(
-            '<img src="{}" width="60%"/>', self.face,
-        )
 
     class Meta:
         db_table = 'Student'

@@ -31,7 +31,11 @@ class StudentDetailSerializer(serializers.ModelSerializer):
     def grade_field(self, obj):
         return obj.get_grade()
 
+    class_info = serializers.SerializerMethodField('class_info_field')
+    def class_info_field(self, obj):
+        return obj.get_class_info()
+
     class Meta:
         model = StudentDetail
-        fields = ('student', 'liaisons', 'liaisons_mobile', 'college', 'major', 'grade')
+        fields = ('student', 'liaisons', 'liaisons_mobile', 'college', 'major', 'grade', 'class_info')
 

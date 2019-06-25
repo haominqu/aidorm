@@ -3,6 +3,16 @@ from .models import *
 
 
 class BuildSerializer(serializers.ModelSerializer):
+    dorm_manager = serializers.SerializerMethodField('dorm_manager_field')
+    def dorm_manager_field(self, obj):
+        return obj.manager.username
+
+    class Meta:
+        model = DormBuild
+        fields = ('id', 'buildname', 'dorm_manager')
+
+
+class UnboundBuildSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DormBuild

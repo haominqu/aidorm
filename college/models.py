@@ -9,7 +9,7 @@ class College(models.Model):
     isDelete = models.BooleanField(verbose_name='是否删除', default=False)
 
     def __str__(self):
-        return self.college_name
+        return self.college_id+"-"+self.college_name
 
     class Meta:
         db_table = 'College'
@@ -24,7 +24,10 @@ class Major(models.Model):
     isDelete = models.BooleanField(verbose_name='是否删除', default=False)
 
     def __str__(self):
-        return self.college.college_name+"-"+self.major_name
+        return self.major_id+"-"+self.major_name
+
+    def get_college(self):
+        return self.college.college_name
 
     class Meta:
         db_table = 'Major'
@@ -48,11 +51,19 @@ class ClassInfo(models.Model):
     major = models.ForeignKey(Major, verbose_name='专业')
     grade = models.ForeignKey(Grade, verbose_name='年级')
     class_name = models.CharField(verbose_name='班级', max_length=50)
-    class_code = models.CharField(verbose_name='班级编码', max_length=30, unique=True, null=False, blank=False)
+    class_code = models.CharField(verbose_name='班级编码', max_length=30, unique=True, null=True, blank=True)
     guide = models.ForeignKey(UserInfo, verbose_name='导员')
+    is_graduation = models.BooleanField(verbose_name="是否已毕业", default=False)
+
 
     def __str__(self):
         return self.grade.grade + self.major.major_name + self.class_name
+
+    def get_gradution(self):
+        if self.is_graduation == 1:
+            return u"True"
+        else:
+            return u"False"
 
     class Meta:
         verbose_name = '班级信息表'

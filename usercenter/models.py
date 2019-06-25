@@ -18,6 +18,7 @@ MROLE_CHIOCES = (
 
 class UserInfo(AbstractUser):
     role = models.IntegerField(verbose_name="角色", choices=MROLE_CHIOCES, default=4)
+    is_delete = models.BooleanField(verbose_name='是否删除', default=False)
 
     def __str__(self):
         return self.username
