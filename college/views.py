@@ -518,3 +518,39 @@ class BatchFace(APIView):
     def get(self, request):
         return render(request, 'batch_face.html')
 
+
+class ShowClassDetail(APIView):
+
+    def get(self, request):
+        """
+        导员查询所管班级的详细信息
+        param request: 导员id
+        return: id, 班级名称, 年级, 院系, 专业, 导员, 总人数, 是否毕业
+        """
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        guide_id = a['user_id']
+        if a['role'] != 3:
+            result = False
+            data = ""
+            error = ""
+            return JsonResponse({"result": result, "data": data, "error": error})
+        if guide_id == "":
+            result = False
+            data = ""
+            error = "导员不能为空"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        all_class = ClassInfo.objects.filter(guide_id=guide_id)
+        data = []
+        for per_class in all_class:
+            per_class_ser = GlassSerializer(per_class, many=False)
+            per_class_data = per_class_ser.data
+            total_number = per_class.studentdetail_set.all().count()
+            per_class_data["total_number"] = total_number
+            data.append(per_class_data)
+        result = True
+        data = data
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+

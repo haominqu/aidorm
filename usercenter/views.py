@@ -25,6 +25,7 @@ from aidorm.settings import BASE_URL
 import logging
 import json
 import jwt
+import datetime
 
 
 logger = logging.getLogger('sourceDns.webdns.views')
@@ -48,17 +49,30 @@ class UserLogin(APIView):
             data = ""
             error = "用户名密码不能为空"
             return JsonResponse({"result": result, "data": data, "error": error})
-        user = authenticate(username=username, password=password)
-        if user == None:
+        user = UserInfo.objects.filter(username=username)
+        if not user:
+            result = False
+            data = ""
+            error = "未查询到用户"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        is_pwd = check_password(password, user[0].password)
+        if not is_pwd:
             result = False
             data = ""
             error = "用户名密码不正确"
             return JsonResponse({"result": result, "data": data, "error": error})
         if user:
+            if user[0].last_login:
+                user.update(recent_time=user[0].last_login)
+                now_time = datetime.datetime.now()
+                user.update(last_login=now_time)
+            else:
+                now_time = datetime.datetime.now()
+                user.update(last_login=now_time)
             jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
             jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-            logininfo = jwt_payload_handler(user)
-            logininfo['role'] = user.role
+            logininfo = jwt_payload_handler(user[0])
+            logininfo['role'] = user[0].role
             token = jwt_encode_handler(logininfo)
             # logininfo={}
             # logininfo["userid"]=user.id
@@ -67,18 +81,19 @@ class UserLogin(APIView):
             # encoded_jwt = jwt.encode(logininfo, 'secret_key',algorithm='HS256')
             # encoded_jwt = bytes.decode(encoded_jwt)
             data = {}
-            data['user'] = user.username
-            data['role'] = user.role
+            data['id'] = user[0].id
+            data['user'] = user[0].username
+            data['role'] = user[0].role
             data['retoken'] = token
-            if user.role == 0:
+            if user[0].role == 0:
                 data['avatar'] = BASE_URL+"/media/avatar/super_manage.jpg"
-            elif user.role == 1:
+            elif user[0].role == 1:
                 data['avatar'] = BASE_URL+"/media/avatar/school_manage.jpg"
-            elif user.role == 2:
+            elif user[0].role == 2:
                 data['avatar'] = BASE_URL+"/media/avatar/base_manage.jpg"
-            elif user.role == 3:
+            elif user[0].role == 3:
                 data['avatar'] = BASE_URL+"/media/avatar/guide_manage.jpg"
-            elif user.role == 4:
+            elif user[0].role == 4:
                 data['avatar'] = BASE_URL+"/media/avatar/dorm_manage.jpg"
             result = True
             data = data
@@ -569,6 +584,11 @@ class UnLockView(APIView):
             data = ""
             error = "密码不能为空"
             return JsonResponse({"result": result, "data": data, "error": error})
+        if request.META.get("HTTP_AUTHORIZATION") == None:
+            result = False
+            data = ""
+            error = "token无效"
+            return JsonResponse({"result": result, "data": data, "error": error})
         token = request.META.get("HTTP_AUTHORIZATION").split(' ')
         a = jwt_decode_handler(token[2])
         user_id = a['user_id']
@@ -588,6 +608,42 @@ class UnLockView(APIView):
         data = ""
         error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
+
+# 首页数据展示
+# 超级管理员：最近登录时间；各账号开通数量；最近操作记录
+# 学校管理员：在校学生总数；毕业生总数；男女比例；各专业人数；总班数；最近登录时间
+# 基础设施管理员：最近登录时间；房间数量；入住率；运行闸机数量；其他状态闸机数量；最近维修记录；
+# 导员：最近登录时间；所负责学生总数；违纪人数；负责班级数量；违纪排行榜；
+# 宿舍管理员：最近登录时间；本楼人数；本楼剩余房间数；入住率；进出人数时间图；非正常时间进入人数；
+# 非正常时间出人数；最近非正常时间进入人；最近非正常时间出门人；携带进入人；
+
+
+class IndexLastLogin(APIView):
+
+    def get(self, request):
+        if request.META.get("HTTP_AUTHORIZATION") == None:
+            result = False
+            data = ""
+            error = "token无效"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        user = UserInfo.objects.filter(id=user_id)
+        if not user:
+            result = False
+            data = ""
+            error = "未查询到用户"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        if user[0].recent_time == None:
+            pass
+        last_time = user[0].recent_time
+        result = True
+        data = last_time
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+
 
 
 

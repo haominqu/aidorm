@@ -1,4 +1,6 @@
 # restful API
+import shutil
+
 from rest_framework.views import APIView
 
 #django
@@ -6,8 +8,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.db import transaction
 from django.shortcuts import HttpResponse
+from django.conf import settings
 
 # selfproject
+from rest_framework_jwt.authentication import jwt_decode_handler
+
 from .serializers import *
 from .models import *
 from college.models import Major
@@ -20,55 +25,104 @@ import xlrd
 import xlwt
 import io
 import zipfile
+import datetime
+import time
+import os
 
 # Create your views here.
 
 logger = logging.getLogger('sourceDns.webdns.views')
 
+
+class UploadImageTest(APIView):
+
+    def post(self, request):
+        if request.META.get("HTTP_AUTHORIZATION") == None:
+            result = False
+            data = ""
+            error = "token无效"
+            return JsonResponse({"result": result, "data": data, "error": error})
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        face_picture = request.FILES.get('face_picture', '')
+        file_type = face_picture.name.split('.')[1]
+        time_stamp = int(round(time.time() * 1000))
+        file_name = str(user_id) + str(time_stamp) + '.' + file_type
+        f = open(os.path.join(settings.BASE_DIR, 'media', 'tempory', file_name), 'wb')
+        for chunk in face_picture.chunks():
+            f.write(chunk)
+        f.close()
+        file_path = settings.BASE_URL+"/media/tempory/"+file_name
+        result = True
+        data = file_path
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+
 # student edit
 class StudentEdit(APIView):
 
     def get(self, request):
-        student_code = request.POST.get('student_code', '')
-        student_name = request.POST.get('student_name', '')
-        if student_code == "" or student_name == "":
+        """
+        获取班里的学生信息
+        :param request:class_id： 班级id
+        :return:
+        """
+        class_id = request.GET.get('class_id', '')
+        if class_id == "":
             result = False
             data = ""
             error = "信息不能为空"
             return JsonResponse({"result": result, "data": data, "error": error})
         try:
-            student = Student.objects.filter(studentid=student_code, name=student_name)
+            student_detail = StudentDetail.objects.filter(class_info_id=class_id)
         except ObjectDoesNotExist as e:
             logger.error(e)
-        student_detail = StudentDetail.objects.filter(student=student)
-        studentdata = StudentDetailSerializer(student_detail, many=True)
+            result = False
+            data = ""
+            error = ""
+            return JsonResponse({"result": result, "data": data, "error": error})
+        data = {}
+        class_infos = ClassInfo.objects.filter(id=class_id)
+        data['class_total_name'] = class_infos[0].grade.grade+"-"+class_infos[0].major.college.college_name+"-"+class_infos[0].major.major_name+"-"+class_infos[0].class_name
+        student_list = []
+        for student in student_detail:
+            student_info = {}
+            student_info['id'] = student.student.id
+            student_info['student_code'] = student.student.studentid
+            student_info['student_name'] = student.student.name
+            student_info['student_sex'] = student.student.get_sex()
+            student_info['student_phone'] = student.student.phone
+            student_info['student_liaisons'] = student.liaisons
+            student_info['liaisons_mobile'] = student.liaisons_mobile
+            student_info['remarks'] = student.st_others
+            student_list.append(student_info)
+        data['student_infos'] = student_list
         result = True
-        data = studentdata.data
+        data = data
         error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def post(self, request):
-        """add student base info"""
+        """
+        添加学生
+        :param request:
+        :return:
+        """
         student_code = request.POST.get('student_code', '')
         student_name = request.POST.get('student_name', '')
         gender = request.POST.get('gender', '')
         phone = request.POST.get('phone', '')
-        face_picture = request.FILES.get('face_picture', '')
+        face_picture = request.POST.get('face_picture', '')
         liaisons = request.POST.get('liaisons', '')
         liaisons_mobile = request.POST.get('liaisons_mobile', '')
-        major_id = request.POST.get('major_id', '')
+        st_others = request.POST.get('remarks', '')
         class_id = request.POST.get('class_id', '')
-        grade_id = request.POST.get('grade_id', '')
-        if student_code=='' or student_name=='' or gender=='' or phone=='' or face_picture == '' or liaisons=='' or liaisons_mobile=='' or major_id=='' or grade_id=='' or class_id=='':
+        if student_code=='' or student_name=='' or gender=='' or phone=='' or face_picture == '' or liaisons=='' or liaisons_mobile=='' or class_id=='':
             result = False
             data = ""
             error = "信息不能为空"
-            return JsonResponse({"result": result, "data": data, "error": error})
-        major = Major.objects.filter(id=major_id)
-        if not major:
-            result = False
-            data = ""
-            error = "请输入正确专业信息"
             return JsonResponse({"result": result, "data": data, "error": error})
         class_info = ClassInfo.objects.filter(id=class_id)
         if not class_info:
@@ -76,14 +130,21 @@ class StudentEdit(APIView):
             data = ""
             error = "请输入正确班级信息"
             return JsonResponse({"result": result, "data": data, "error": error})
-        grade = Grade.objects.filter(id=grade_id)
-        if not grade:
-            result = False
-            data = ""
-            error = "请输入正确年级信息"
-            return JsonResponse({"result": result, "data": data, "error": error})
+        major = class_info[0].major
+        grade = class_info[0].grade
+
+        face_file_name = face_picture.split('/')[-1]
+        fixed_file_path = "/media/fixed_face/"
+        tempory_file_path = "/media/tempory/"
+        abs_path = os.getcwd()
+        for file in os.listdir(abs_path+tempory_file_path):
+            if file != face_file_name:
+                continue
+            else:
+                shutil.copy(os.path.join(abs_path+tempory_file_path, file), os.path.join(abs_path+fixed_file_path, file))
+                os.remove(os.path.join(abs_path+tempory_file_path, face_file_name))
         try:
-            new_student = Student.objects.create(studentid=student_code, name=student_name, sex=gender, phone=phone, face=face_picture)
+            new_student = Student.objects.create(studentid=student_code, name=student_name, sex=gender, phone=phone, face=face_file_name)
         except ObjectDoesNotExist as e:
             logging.warning(e)
             result = False
@@ -91,7 +152,7 @@ class StudentEdit(APIView):
             error = "添加学生失败"
             return JsonResponse({"result": result, "data": data, "error": error})
         try:
-            StudentDetail.objects.create(liaisons=liaisons, liaisons_mobile=liaisons_mobile, student=new_student, major=major[0], grade=grade[0], class_info=class_info[0])
+            StudentDetail.objects.create(liaisons=liaisons, liaisons_mobile=liaisons_mobile, student=new_student, major=major, grade=grade, class_info=class_info[0], st_others=st_others)
         except ObjectDoesNotExist as e:
             logging.warning(e)
             new_student.delete()
@@ -105,8 +166,8 @@ class StudentEdit(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def delete(self, request):
-        student_code = request.POST.get('student_code', '')
-        student_name = request.POST.get('student_name', '')
+        student_code = request.data.get('student_code', '')
+        student_name = request.data.get('student_name', '')
         if student_code == "" or student_name == "":
             result = False
             data = ""
@@ -127,9 +188,9 @@ class StudentEdit(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def put(self, request):
-        student_code = request.POST.get('student_code', '')
-        student_name = request.POST.get('student_name', '')
-        new_mobile = request.POST.get('new_mobile', '')
+        student_code = request.data.get('student_code', '')
+        student_name = request.data.get('student_name', '')
+        new_mobile = request.data.get('new_mobile', '')
         if student_code == "" or student_name == "" or new_mobile == "":
             result = False
             data = ""

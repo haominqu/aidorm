@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^editgrade', GradeEdit.as_view(), name='edit_grade'),
     url(r'^edit/class', ClassInfoView.as_view(), name='edit_class'),  # 班级管理
     url(r'^alread/gradu', AlreadyGraduation.as_view(), name='alread_gradu'),  # 班级毕业
+    url(r'^class/detail', ShowClassDetail.as_view(), name='class_detail'),  # 导员查询所管理班级的详细信息
     # url(r'^savedata', SaveData.as_view(), name='save_data'),
 
  ]
