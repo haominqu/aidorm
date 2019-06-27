@@ -25,9 +25,9 @@ logger = logging.getLogger('sourceDns.webdns.views')
 
 # build edit
 class BuildingEdit(APIView):
-    permission_classes = (
-        IsConnAdmin,
-    )
+    # permission_classes = (
+    #     IsConnAdmin,
+    # )
 
     def get(self, request):
         build = DormBuild.objects.filter(is_delete=False)

@@ -8,4 +8,7 @@ urlpatterns = [
     url(r'super/school', SuperSchoolView.as_view(), name="super_school"),  # 超级管理员对学校管理员管理
     url(r'super/dorm', SuperDormView.as_view(), name="super_dorm"),  # 超级管理员对宿舍管理员管理
     url(r'super/guide', SuperGuideView.as_view(), name="super_guide"),  # 超级管理员对导员管理
+    url(r'unbound/build', UnboundBuildView.as_view(), name="unbound_build"),  # 超级管理员对导员管理
+    url(r'change/password', UserChangePassword.as_view(), name="change_password"),  # 用户修改密码
+    url(r'unlock', UnLockView.as_view(), name="unlock"),  # 锁屏
 ]

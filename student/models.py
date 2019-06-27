@@ -1,6 +1,5 @@
 from django.db import models
 from college.models import *
-from django.utils.html import format_html
 
 
 # Create your models here.
@@ -17,8 +16,8 @@ class Student(models.Model):
     name = models.CharField(verbose_name='姓名', max_length=50)
     sex = models.IntegerField(verbose_name='性别', choices=SEX_CHOICES, default=0)
     phone = models.CharField(verbose_name='联系电话', max_length=13, null=False)
-    face = models.ImageField(verbose_name='人脸', upload_to='img/face', default="a.png", null=True, blank=True)
-    # face = models.CharField(verbose_name='人脸', max_length=50, null=True, blank=True)
+    # face = models.ImageField(verbose_name='人脸', upload_to='img/face', default="a.png", null=True, blank=True)
+    face = models.CharField(verbose_name='人脸', max_length=300, null=True, blank=True)
     finger = models.CharField(verbose_name='指纹', max_length=50, null=True, blank=True)
     isGraduate = models.BooleanField(verbose_name='是否为毕业生', default=False)
 
@@ -31,10 +30,6 @@ class Student(models.Model):
         else:
             return u'女'
 
-    def image_data(self):
-        return format_html(
-            '<img src="{}" width="60%"/>', self.face,
-        )
 
     class Meta:
         db_table = 'Student'
@@ -45,6 +40,7 @@ class Student(models.Model):
 class StudentDetail(models.Model):
     liaisons = models.CharField(verbose_name='紧急联络人', max_length=20)
     liaisons_mobile = models.CharField(verbose_name='紧急联络人电话', max_length=20)
+    st_others = models.CharField(verbose_name='备注', max_length=20, default='')
     student = models.OneToOneField(Student, verbose_name='学生信息')
     major = models.ForeignKey(Major, verbose_name='专业信息')
     class_info = models.ForeignKey(ClassInfo, verbose_name='班级')
