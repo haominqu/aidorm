@@ -41,3 +41,18 @@ class UserInfo(AbstractUser):
         verbose_name_plural = verbose_name
 
 
+class MessageNews(models.Model):
+    title = models.CharField(verbose_name='通知标题',max_length=50, default='')
+    message = models.TextField(verbose_name='通知信息')
+    msg_time = models.DateTimeField(verbose_name='通知时间', auto_now_add=True)
+    is_read = models.BooleanField(verbose_name='是否已读', default=False)
+    is_delete = models.BooleanField(verbose_name='是否删除', default=False)
+    to_user = models.ForeignKey(UserInfo)
+
+    class Meta:
+        db_table = 'MessageNews'
+        verbose_name = '通知信息表'
+        verbose_name_plural = verbose_name
+
+
+

@@ -512,7 +512,41 @@ class SuperGuideView(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
 
+# 通知消息
+class MessageNewsView(APIView):
 
+    def get(self, request):
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        msg_data = MessageNews.objects.filter(user_id=user_id,is_delete=False)
+        msg_data = MessageSerializer(msg_data, many=True)
+        result = True
+        data = msg_data.data
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+    def put(self, request):
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        msg_id = request.data.get('msg_id', '')
+        msg_data = MessageNews.objects.filter(id=msg_id).update(is_read=True)
+        result = True
+        data = msg_data.data
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+    def delete(self, request):
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        msg_id = request.data.get('msg_id', '')
+        msg_data = MessageNews.objects.filter(id=msg_id, to_user_id=user_id).update(is_delete=True)
+        result = True
+        data = msg_data.data
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
 
 
 
