@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'unbound/build', UnboundBuildView.as_view(), name="unbound_build"),  # 超级管理员对导员管理
     url(r'change/password', UserChangePassword.as_view(), name="change_password"),  # 用户修改密码
     url(r'unlock', UnLockView.as_view(), name="unlock"),  # 锁屏
+    url(r'show/index', ShowIndexView.as_view(), name="show_index"),  # 首页展示
 ]

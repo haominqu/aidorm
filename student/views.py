@@ -69,6 +69,7 @@ class StudentEdit(APIView):
         :param request:class_id： 班级id
         :return:
         """
+        print(request.path_info)
         class_id = request.GET.get('class_id', '')
         if class_id == "":
             result = False
@@ -166,15 +167,14 @@ class StudentEdit(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def delete(self, request):
-        student_code = request.data.get('student_code', '')
-        student_name = request.data.get('student_name', '')
-        if student_code == "" or student_name == "":
+        student_id = request.data.get('student_id', '')
+        if student_id == "":
             result = False
             data = ""
             error = "信息不能为空"
             return JsonResponse({"result": result, "data": data, "error": error})
         try:
-            student = Student.objects.filter(studentid=student_code, name=student_name)
+            student = Student.objects.filter(id=student_id)
             student.delete()
         except ObjectDoesNotExist as e:
             logger.error(e)
@@ -188,21 +188,33 @@ class StudentEdit(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def put(self, request):
-        student_code = request.data.get('student_code', '')
-        student_name = request.data.get('student_name', '')
+        student_id = request.data.get('student_id', '')
         new_mobile = request.data.get('new_mobile', '')
-        if student_code == "" or student_name == "" or new_mobile == "":
+        liaisons = request.data.get('liaisons', '')
+        liaisons_mobile = request.data.get('liaisons_mobile', '')
+        if student_id == "":
             result = False
             data = ""
             error = "信息不能为空"
             return JsonResponse({"result": result, "data": data, "error": error})
-        student = Student.objects.filter(studentid=student_code, name=student_name)
+        student = Student.objects.filter(id=student_id)
         if not student:
             result = False
             data = ""
-            error = "请输入正确学号姓名"
+            error = "请输入正确学生"
             return JsonResponse({"result": result, "data": data, "error": error})
-        student.update(phone=new_mobile)
+        if new_mobile:
+            student.update(phone=new_mobile)
+        student_detail = StudentDetail.objects.filter(student_id=student[0].id)
+        if not student_detail:
+            result = False
+            data = ""
+            error = ""
+            return JsonResponse({"result": result, "data": data, "error": error})
+        if liaisons:
+            student_detail.update(liaisons=liaisons)
+        if liaisons_mobile:
+            student_detail.update(liaisons_mobile=liaisons_mobile)
         result = True
         data = ""
         error = "修改成功"
