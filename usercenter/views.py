@@ -15,14 +15,14 @@ from django.db.models import Q
 # selfproject
 from college.models import ClassInfo, Major
 from college.serializers import GlassSerializer
-<<<<<<< HEAD
+
 from dormitory.models import DormBuild,AccessRecords
 from dormitory.serializers import BuildSerializer, UnboundBuildSerializer,AccessRecordSerializer
-=======
+
 from dormitory.models import DormBuild, DormRoom, BedNumber, FaceMachine
 from dormitory.serializers import BuildSerializer, UnboundBuildSerializer, Student
 from student.models import StudentDetail
->>>>>>> 319cfb16f936dca29614235e03013be848dfcf3c
+
 from .serializers import *
 from .permissions import *
 from .models import *
@@ -724,7 +724,37 @@ class ShowIndexView(APIView):
         elif a['role'] == 3:
                 pass
         elif a['role'] == 4:
-                pass
+            index = IndexDataView()
+            # 最近登录时间；
+            last_login = index.last_login(a)
+            base_count_todata = []
+            b_c_todata = {}
+            b_c_todata['title'] = '本楼人数'
+            b_c_todata['number'] = index.build_number(a)
+            b_c_todata['icon'] = 'pricetags'
+            b_c_todata['color'] = '#2d8cf0'
+            base_count_todata.append(b_c_todata)
+            b_c_todata['title'] = '本楼剩余房间数'
+            b_c_todata['number'] = index.remain_number(a)
+            b_c_todata['icon'] = 'unlocked'
+            b_c_todata['color'] = '#64d572'
+            base_count_todata.append(b_c_todata)
+            m = index.unusualentryorexit(a)
+            b_c_todata['title'] = '本楼非正常时间进入人数'
+            b_c_todata['number'] = m[0]
+            b_c_todata['icon'] = 'unlocked'
+            b_c_todata['color'] = '#64d572'
+            base_count_todata.append(b_c_todata)
+            b_c_todata['title'] = '本楼非正常时间出门人数'
+            b_c_todata['number'] = m[1]
+            b_c_todata['icon'] = 'unlocked'
+            b_c_todata['color'] = '#64d572'
+            base_count_todata.append(b_c_todata)
+            message_todata = index.last_operation(a)
+            e_type = 'pie'
+            todire = ['入住人数','总人数']
+            todi = index.build_occupancy_rate(a)
+            index_template(last_login,base_count_todata,message_todata,e_type,todire,todi)
         else:
             result = False
             data = ""
@@ -1082,11 +1112,11 @@ class IndexDataView(APIView):
                 room_bed_number += 8
             total_bed_number += room_bed_number
         already_stay_number = BedNumber.objects.exclude(student=None).count()
-        stay_rate = "%.2f%%" % (float(already_stay_number) / total_bed_number * 100)
-        result = True
-        data = stay_rate
-        error = ""
-        return JsonResponse({"result": result, "data": data, "error": error})
+        # stay_rate = "%.2f%%" % (float(already_stay_number) / total_bed_number * 100)
+        data= []
+        data.append(already_stay_number)
+        data.append(total_bed_number)
+        return data
 
     def gates_machine_number(self):
         """
@@ -1221,19 +1251,26 @@ class IndexDataView(APIView):
             total_bed_number += room_bed_number
         already_stay_number = BedNumber.objects.filter(~Q(student=None), room__build=build_obj).count()
         stay_rate = "%.2f%%" % (float(already_stay_number) / total_bed_number * 100)
-        result = True
-        data = stay_rate
-        error = ""
-        return JsonResponse({"result": result, "data": data, "error": error})
 
-    def UnusualEntryOrExit(self):
+        data =[]
+        d ={}
+        d['入住人数']=already_stay_number
+        d['总人数']=total_bed_number
+
+        data.append(d)
+
+
+        return data
+
+    def unusualentryorexit(self,token):
         """
         the count of unusually enter
         :return:
         """
+        user_id = token['user_id']
         start_time = datetime.datetime.strptime('00:00:00', '%H:%M:%S')
         end_time = datetime.datetime.strptime('04:00:00', '%H:%M:%S')
-        access_datas = AccessRecords.objects.all()
+        access_datas = AccessRecords.objects.filter(build__manager_id=user_id)
         data = {}
         i = 0
         j = 0
@@ -1325,46 +1362,51 @@ class MessageDetailView(APIView):
 
 
 # last_time,base_count_todata,
-#
-# datas ={}
-# base_data={}
-# base_data['last_time']=last_time
-# base_data['last_location']='北京'
-# datas['base']=base_data
-# base_count_datas=[]
-# for b_c_d in base_count_todata:
-#     base_count_data={}
-#     base_count_data['title']=b_c_d.title
-#     base_count_data['number']=b_c_d.number
-#     base_count_data['icon']=b_c_d.icon
-#     base_count_data['color']=b_c_d.color
-#     base_count_datas.append(base_count_data)
-# datas['base_count']=base_count_datas
-# message_datas=[]
-# message_data={}
-# message_data['title']=
-# message_datas.append(message_datas)
-# datas['message']=message_datas
-# echarts_data={}
-# echarts_data['type']=
-# e_datas={}
-# dire_data=[]
-# dire_data.append('')
-# e_datas['dire']=
-# direses=[]
-# direse={}
-# direse['value']=
-# direse['name']=
-# itemStyle={}
-# normal={}
-# normal['color']=
-# itemStyle['normal']=normal
-# direse['itemStyle']=itemStyle
-# direses.append(direse)
-# e_datas['direses']=direses
-# echarts_data['datas']=e_datas
-# datas['echarts1']=echarts_data
-# datas['echarts2']=
+
+def index_template(last_time,base_count_todata,message_todata,e_type,todire,todi):
+    datas ={}
+    base_data={}
+    base_data['last_time']=last_time
+    base_data['last_location']='北京'
+    datas['base']=base_data
+    base_count_datas=[]
+    for b_c_d in base_count_todata:
+        base_count_data={}
+        base_count_data['title']=b_c_d.title
+        base_count_data['number']=b_c_d.number
+        base_count_data['icon']=b_c_d.icon
+        base_count_data['color']=b_c_d.color
+        base_count_datas.append(base_count_data)
+    datas['base_count']=base_count_datas
+    message_datas=[]
+    for m_d in message_todata:
+        message_data={}
+        message_data['title']=m_d.title
+        message_datas.append(message_datas)
+    datas['message']=message_datas
+    echarts_data={}
+    echarts_data['type']=e_type
+    e_datas={}
+    dire_data=[]
+    for dire in todire:
+        dire_data.append(dire)
+    e_datas['dire']=dire_data
+    direses=[]
+    for di in todi:
+        direse={}
+        direse['value']=di.value
+        direse['name']=di.name
+        itemStyle={}
+        normal={}
+        normal['color']='red'
+        itemStyle['normal']=normal
+        direse['itemStyle']=itemStyle
+        direses.append(direse)
+    e_datas['direses']=direses
+    echarts_data['datas']=e_datas
+    datas['echarts1']=echarts_data
+    return datas
+    # datas['echarts2']=
 
 
 

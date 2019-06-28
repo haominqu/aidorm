@@ -14,6 +14,4 @@ urlpatterns = [
     url(r'show/index', ShowIndexView.as_view(), name="show_index"),  # 首页展示
     url(r'message', MessageNewsView.as_view(), name="message"),  # 通知
     url(r'msgdetail', MessageDetailView.as_view(), name="message_detail"),  # 通知
-    url(r'^unusualentry', UnusualEntry.as_view(), name='unusualentry'),  # 长时间未出入
-
 ]

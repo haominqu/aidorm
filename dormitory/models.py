@@ -81,6 +81,7 @@ class AccessRecords(models.Model):
     student = models.ForeignKey(Student, verbose_name='学生')
     enter_time = models.DateTimeField(verbose_name='进入时间', null=True, blank=True)
     entry_time = models.DateTimeField(verbose_name='出去时间', null=True, blank=True)
+    build = models.ForeignKey(DormBuild)
 
     def __str__(self):
         return self.student.name
