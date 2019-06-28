@@ -554,11 +554,11 @@ class FaceMachineView(APIView):
     def get(self, request):
         build_id = request.GET.get("build_id", "")
         machine_no = request.GET.get("machine_no", "")
-        if build_id=='' and machine_no=='':
+        if build_id == '' and machine_no == '':
             machines = FaceMachine.objects.all()
-        elif build_id=='' and machine_no!='':
+        elif build_id == '' and machine_no != '':
             machines = FaceMachine.objects.filter(machine_no=machine_no)
-        elif build_id!='' and machine_no=='':
+        elif build_id != '' and machine_no == '':
             machines = FaceMachine.objects.filter(build_id=build_id)
         machines_data = FaceMachineSerializer(machines, many=True)
         machines_data = machines_data.data
@@ -579,6 +579,7 @@ class FaceMachineView(APIView):
     def put(self, request):
         dis_or_act = request.data.get('dis_or_act')
         machine_id = request.data.get("machine_id", "")
+        data = ''
         if dis_or_act == '0':
             face_machine = FaceMachine.objects.filter(id=machine_id).update(machine_status=1)
             data = '激活成功'

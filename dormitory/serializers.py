@@ -87,6 +87,22 @@ class FaceMachineSerializer(serializers.ModelSerializer):
             status = "关闭"
         return status
 
+    machine_dis_act = serializers.SerializerMethodField('machine_dis_act_field')
+
+    def machine_dis_act_field(self, obj):
+        machinestatus = obj.machine_status
+        if machinestatus == 0:
+            status = 0
+        elif machinestatus == 1:
+            status = 1
+        elif machinestatus == 2:
+            status = 1
+        elif machinestatus == 3:
+            status = 1
+        elif machinestatus == 4:
+            status = 0
+        return status
+
     class Meta:
         model = FaceMachine
-        fields = ('id', 'build', 'machine_no', 'machine_status')
+        fields = ('id', 'build', 'machine_no', 'machine_status','machine_dis_act')

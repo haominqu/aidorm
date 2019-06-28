@@ -644,21 +644,33 @@ class IndexLastLogin(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
 
-
-
-
 # 通知消息
 class MessageNewsView(APIView):
 
     def get(self, request):
+        import time
         token = request.META.get("HTTP_AUTHORIZATION").split(' ')
         a = jwt_decode_handler(token[2])
         user_id = a['user_id']
-        msg_data = MessageNews.objects.filter(user_id=user_id,is_delete=False)
-        msg_data = MessageSerializer(msg_data, many=True)
+        unread = []
+        hasread = []
+        msg_datas = MessageNews.objects.filter(to_user_id=user_id,is_delete=False)
+        for msg_data in msg_datas:
+            msg = {}
+            msg['id'] = msg_data.id
+            msg['title'] = msg_data.title
+            msg['time'] = str(datetime.datetime.strptime(str(msg_data.msg_time)[:19], "%Y-%m-%d %H:%M:%S"))
+            if msg_data.is_read:
+                hasread.append(msg)
+            else:
+                unread.append(msg)
+        data={}
+        data['unread'] = unread
+        data['hasread'] = hasread
         result = True
-        data = msg_data.data
+        data = data
         error = ""
+        print(data )
         return JsonResponse({"result": result, "data": data, "error": error})
 
     def put(self, request):
@@ -668,10 +680,11 @@ class MessageNewsView(APIView):
         msg_id = request.data.get('msg_id', '')
         msg_data = MessageNews.objects.filter(id=msg_id).update(is_read=True)
         result = True
-        data = msg_data.data
+        data = '已读'
         error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
 
+    # sudo apt-get remove linux-image-4.10.0-28-generic
     def delete(self, request):
         token = request.META.get("HTTP_AUTHORIZATION").split(' ')
         a = jwt_decode_handler(token[2])
@@ -679,13 +692,27 @@ class MessageNewsView(APIView):
         msg_id = request.data.get('msg_id', '')
         msg_data = MessageNews.objects.filter(id=msg_id, to_user_id=user_id).update(is_delete=True)
         result = True
-        data = msg_data.data
+        data = '删除成功'
         error = ""
         return JsonResponse({"result": result, "data": data, "error": error})
 
 
+class MessageDetailView(APIView):
 
-
+    def get(self, request):
+        print('##################')
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        msg_id = request.GET.get('msg_id', '')
+        print("@@@@@",msg_id)
+        msg_data_sql = MessageNews.objects.get(id=msg_id, to_user_id=user_id)
+        msg_data = MessageSerializer(msg_data_sql,many=False)
+        print(msg_data.data)
+        result = True
+        data = msg_data.data
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
 
 
 
