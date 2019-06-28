@@ -32,7 +32,7 @@ class UserInfo(AbstractUser):
         elif self.role == 1:
             return u'学校管理员'
         elif self.role == 2:
-            return u'基础设施管理'
+            return u'基础设施管理员'
         elif self.role == 3:
             return u'导员'
         elif self.role == 4:
