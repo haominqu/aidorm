@@ -14,3 +14,4 @@ class UserInfoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(UserInfo,UserInfoAdmin)
+admin.site.register(MessageNews)

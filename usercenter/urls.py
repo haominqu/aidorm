@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'change/password', UserChangePassword.as_view(), name="change_password"),  # 用户修改密码
     url(r'unlock', UnLockView.as_view(), name="unlock"),  # 锁屏
     url(r'show/index', ShowIndexView.as_view(), name="show_index"),  # 首页展示
+    url(r'message', MessageNewsView.as_view(), name="message"),  # 通知
+    url(r'msgdetail', MessageDetailView.as_view(), name="message_detail"),  # 通知
 ]

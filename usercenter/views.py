@@ -652,44 +652,66 @@ class UnLockView(APIView):
 # #非正常时间出人数；#最近非正常时间进入人；#最近非正常时间出门人；#携带进入人；
 
 
+
+# {
+#     "base":{"last_time":"2019-01-01 20:20:20","last_location":"北京"},
+#     "base_count":[{"title":"宿管帐号","number":"1"},{"title":"基础设施管理员","number":"10"},{"title":"学校管理元","number":"5"},{"title":"导员","number":"4"}],
+#     "message":[{"title":"通知消息标题"},{"title":"通知消息标题"},{"title":"通知消息标题"},{"title":"通知消息标题"},{"title":"通知消息标题"},{"title":"通知消息标题"}],
+#     "echarts":{"type":"pie",
+#                "datas":{"dire":["男生人数","女生人数"],
+#                         "direses":[
+#                                         {value: 453682, name: 'Mon', itemStyle: {normal: {color: '#2d8cf0'}}},
+#                                         {value: 879545, name: 'Tues', itemStyle: {normal: {color: '#2d8cf0'}}},
+#                                         {value: 2354678, name: 'Wed', itemStyle: {normal: {color: '#2d8cf0'}}},
+#                                         {value: 1598403, name: 'Thur', itemStyle: {normal: {color: '#2d8cf0'}}},
+#                                         {value: 543250, name: 'Fri', itemStyle: {normal: {color: '#2d8cf0'}}},
+#                                         {value: 1305923, name: 'Sat', itemStyle: {normal: {color: '#2d8cf0'}}},
+#                                         {value: 1103456, name: 'Sun', itemStyle: {normal: {color: '#2d8cf0'}}}
+#                                     ]
+#                         }
+#                }
+#
+# }
+
+
+
+
 class ShowIndexView(APIView):
     def get(self, request):
         if request.META.get("HTTP_AUTHORIZATION") == None:
             result = False
             data = ""
-            error = "token无效"
+            error = "无权限"
             return JsonResponse({"result": result, "data": data, "error": error})
         token = request.META.get("HTTP_AUTHORIZATION").split(' ')
         a = jwt_decode_handler(token[2])
         if a['role'] == 0:
-            # 最近登录时间；各账号开通数量；#最近操作记录
             index = IndexDataView()
             data = {}
+            # 最近登录时间；
             last_login = index.last_login(a)
-            last_login_data = {}
-            if last_login:
-                last_login_data["result"] = True
-                last_login_data["last_login"] = last_login
-                last_login_data["error"] = ""
-            else:
-                last_login_data["result"] = False
-                last_login_data["last_login"] = ""
-                last_login_data["error"] = ""
-            account_number = index.account_number(a)
-            account_number_data = {}
-            if account_number:
-                account_number_data["result"] = True
-                account_number_data["account_number"] = account_number
-                account_number_data["error"] = ""
-            else:
-                account_number_data["result"] = False
-                account_number_data["account_number"] = ""
-                account_number_data["error"] = ""
-            data["last_login_data"] = last_login_data
-            data["account_number_data"] = account_number_data
+            data['base'] = last_login
+            # 各账号开通数量；
+            account_number = index.account_number()
+            data['base_count'] = account_number
+            # 最近操作记录
+            last_operation = index.last_operation(a)
+            data['message'] = last_operation
+            # echarts
+            login_times_echarts = index.login_times_echarts()
+            data['echarts'] = login_times_echarts
             return JsonResponse(data)
         elif a['role'] == 1:
-                pass
+            index = IndexDataView()
+            data = {}
+            # 最近登录时间；
+            last_login = index.last_login(a)
+            data['base'] = last_login
+            # 在校学生总数, 毕业生总数, 总班数, 已开通班级数
+
+
+            return JsonResponse(data)
+
         elif a['role'] == 2:
                 pass
         elif a['role'] == 3:
@@ -699,7 +721,7 @@ class ShowIndexView(APIView):
         else:
             result = False
             data = ""
-            error = ""
+            error = "无权限"
             return JsonResponse({"result": result, "data": data, "error": error})
 
 
@@ -708,67 +730,218 @@ class IndexDataView(APIView):
     首页数据展示
     """
 
-    def last_login(self, token):
+    def last_login(self, a):
         """
         最近登录时间
         param : token
         return:
         """
-        user_id = token['user_id']
+        user_id = a['user_id']
         # user_id = 2
         user = UserInfo.objects.filter(id=user_id)
-        if not user:
-            return False
+        login_data = {}
         if user[0].recent_time == None:
-            result = True
-            data = "无最近登录信息"
-            error = ""
-            return JsonResponse({"result": result, "data": data, "error": error})
-        last_time = user[0].recent_time
-        return last_time
-        # result = True
-        # data = last_time
-        # error = ""
-        # return JsonResponse({"result": result, "data": data, "error": error})
+            last_time = "0000-00-00 00:00:00"
+            last_location = "北京"
+        else:
+            last_time = user[0].recent_time
+            last_time = str(datetime.datetime.strptime(str(last_time)[:19], "%Y-%m-%d %H:%M:%S"))
+            last_location = "北京"
+        login_data["last_time"] = last_time
+        login_data["last_location"] = last_location
+        return login_data
 
-    def account_number(self, token):
+
+    def account_number(self):
         """
         各账号开通数量
         :param token:
         :return:
         """
-        user_role = token['role']
-        if user_role != 0:
-            result = False
-            data = ""
-            error = ""
-            return JsonResponse({"result": result, "data": data, "error": error})
         school_admin = UserInfo.objects.filter(role=1, is_delete=False)
         base_admin = UserInfo.objects.filter(role=2, is_delete=False)
         guide_admin = UserInfo.objects.filter(role=3, is_delete=False)
         dorm_admin = UserInfo.objects.filter(role=4, is_delete=False)
+        data_list = []
         if school_admin == None:
+            data = {}
             school_admin_number = 0
+            data["title"] = "学校管理员"
+            data["number"] = school_admin_number
+            data["icon"] = "person-stalker"
+            data["color"] = "#2d8cf0"
+            data_list.append(data)
         else:
+            data = {}
             school_admin_number = school_admin.count()
+            data["title"] = "学校管理员"
+            data["number"] = school_admin_number
+            data["icon"] = "person-stalker"
+            data["color"] = "#2d8cf0"
+            data_list.append(data)
         if base_admin == None:
+            data = {}
             base_admin_number = 0
+            data["title"] = "基础设施管理员"
+            data["number"] = base_admin_number
+            data["icon"] = "ios-home"
+            data["color"] = "#64d572"
+            data_list.append(data)
         else:
+            data = {}
             base_admin_number = base_admin.count()
+            data["title"] = "基础设施管理员"
+            data["number"] = base_admin_number
+            data["icon"] = "ios-home"
+            data["color"] = "#64d572"
+            data_list.append(data)
         if guide_admin == None:
+            data = {}
             guide_admin_number = 0
+            data["title"] = "导员"
+            data["number"] = guide_admin_number
+            data["icon"] = "bowtie"
+            data["color"] = "#ffd572"
+            data_list.append(data)
         else:
+            data = {}
             guide_admin_number = guide_admin.count()
+            data["title"] = "导员"
+            data["number"] = guide_admin_number
+            data["icon"] = "bowtie"
+            data["color"] = "#ffd572"
+            data_list.append(data)
         if dorm_admin == None:
+            data = {}
             dorm_admin_number = 0
+            data["title"] = "宿舍管理员"
+            data["number"] = dorm_admin_number
+            data["icon"] = "tshirt"
+            data["color"] = "#f25e43"
+            data_list.append(data)
         else:
+            data = {}
             dorm_admin_number = dorm_admin.count()
-        data = {}
-        data["school_admin"] = school_admin_number
-        data["base_admin"] = base_admin_number
-        data["guide_admin"] = guide_admin_number
-        data["dorm_admin"] = dorm_admin_number
+            data["title"] = "宿舍管理员"
+            data["number"] = dorm_admin_number
+            data["icon"] = "tshirt"
+            data["color"] = "#f25e43"
+            data_list.append(data)
+        return data_list
+
+    def last_operation(self, a):
+        """
+        用户最近操作记录
+        :param a:
+        :return:
+        """
+        user_id = a['user_id']
+        # user_id = 2
+        # unread = []
+        # hasread = []
+        msg_datas = MessageNews.objects.filter(to_user_id=user_id, is_delete=False)
+        data = []
+        for msg_data in msg_datas:
+            msg = {}
+            # msg['id'] = msg_data.id
+            msg['title'] = msg_data.title
+            # msg['time'] = str(datetime.datetime.strptime(str(msg_data.msg_time)[:19], "%Y-%m-%d %H:%M:%S"))
+            # if msg_data.is_read:
+            #     hasread.append(msg)
+            # else:
+            #     unread.append(msg)
+            data.append(msg)
+        # data = {}
+        # data['unread'] = unread
+        # data['hasread'] = hasread
         return data
+
+    def show_avatar(self):
+        """
+        头像
+        :return:
+        """
+        data = {}
+        data['role_0'] = BASE_URL + "/media/avatar/super_manage.jpg"
+        data['role_1'] = BASE_URL + "/media/avatar/school_manage.jpg"
+        data['role_2'] = BASE_URL + "/media/avatar/base_manage.jpg"
+        data['role_3'] = BASE_URL + "/media/avatar/guide_manage.jpg"
+        data['role_4'] = BASE_URL + "/media/avatar/dorm_manage.jpg"
+        return data
+
+    def login_times_echarts(self):
+        """
+        各账号登录次数
+        :return:
+        """
+        users = UserInfo.objects.filter(~Q(role=0), is_delete=False)
+        role_legend = []
+        value_1 = 0
+        value_2 = 0
+        value_3 = 0
+        value_4 = 0
+        for user in users:
+            user_role = user.role
+            if user_role == 1:
+                value_1 += 1
+            elif user_role == 2:
+                value_2 += 1
+            elif user_role == 3:
+                value_3 += 1
+            elif user_role == 4:
+                value_4 += 1
+            role_name = user.get_role()
+            role_legend.append(role_name)
+        role_legend = list(set(role_legend))
+        direses_list = []
+        for user in role_legend:
+            if user == "学校管理员":
+                per_user_data = {}
+                itemStyle = {}
+                normal = {}
+                per_user_data['value'] = value_1
+                per_user_data['name'] = user
+                normal["color"] = "#2d8cf0"
+                itemStyle["normal"] = normal
+                per_user_data['itemStyle'] = itemStyle
+                direses_list.append(per_user_data)
+            if user == "基础设施管理员":
+                per_user_data = {}
+                itemStyle = {}
+                normal = {}
+                per_user_data['value'] = value_2
+                per_user_data['name'] = user
+                normal["color"] = "#64d572"
+                itemStyle["normal"] = normal
+                per_user_data['itemStyle'] = itemStyle
+                direses_list.append(per_user_data)
+            if user == "导员":
+                per_user_data = {}
+                itemStyle = {}
+                normal = {}
+                per_user_data['value'] = value_3
+                per_user_data['name'] = user
+                normal["color"] = "#ffd572"
+                itemStyle["normal"] = normal
+                per_user_data['itemStyle'] = itemStyle
+                direses_list.append(per_user_data)
+            if user == "宿舍管理员":
+                per_user_data = {}
+                itemStyle = {}
+                normal = {}
+                per_user_data['value'] = value_4
+                per_user_data['name'] = user
+                normal["color"] = "#f25e43"
+                itemStyle["normal"] = normal
+                per_user_data['itemStyle'] = itemStyle
+                direses_list.append(per_user_data)
+        datas = {}
+        datas["dire"] = role_legend
+        datas["direses"] = direses_list
+        echarts = {}
+        echarts["type"] = "bar"
+        echarts["datas"] = datas
+        return echarts
 
     def in_school_number(self):
         """
@@ -1081,14 +1254,75 @@ class IndexDataView(APIView):
 
 
 
+# 通知消息
+class MessageNewsView(APIView):
+
+    def get(self, request):
+        import time
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        unread = []
+        hasread = []
+        msg_datas = MessageNews.objects.filter(to_user_id=user_id,is_delete=False)
+        for msg_data in msg_datas:
+            msg = {}
+            msg['id'] = msg_data.id
+            msg['title'] = msg_data.title
+            msg['time'] = str(datetime.datetime.strptime(str(msg_data.msg_time)[:19], "%Y-%m-%d %H:%M:%S"))
+            if msg_data.is_read:
+                hasread.append(msg)
+            else:
+                unread.append(msg)
+        data={}
+        data['unread'] = unread
+        data['hasread'] = hasread
+        result = True
+        data = data
+        error = ""
+        print(data )
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+    def put(self, request):
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        msg_id = request.data.get('msg_id', '')
+        msg_data = MessageNews.objects.filter(id=msg_id).update(is_read=True)
+        result = True
+        data = '已读'
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+    # sudo apt-get remove linux-image-4.10.0-28-generic
+    def delete(self, request):
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        msg_id = request.data.get('msg_id', '')
+        msg_data = MessageNews.objects.filter(id=msg_id, to_user_id=user_id).update(is_delete=True)
+        result = True
+        data = '删除成功'
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
 
 
+class MessageDetailView(APIView):
 
-
-
-
-
-
+    def get(self, request):
+        print('##################')
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+        msg_id = request.GET.get('msg_id', '')
+        print("@@@@@",msg_id)
+        msg_data_sql = MessageNews.objects.get(id=msg_id, to_user_id=user_id)
+        msg_data = MessageSerializer(msg_data_sql,many=False)
+        print(msg_data.data)
+        result = True
+        data = msg_data.data
+        error = ""
+        return JsonResponse({"result": result, "data": data, "error": error})
 
 
 

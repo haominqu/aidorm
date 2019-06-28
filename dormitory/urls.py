@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^export/access', ExportAccessView.as_view(), name='export_access'),  # 出入记录
     url(r'^long/enter', LongTimeEnter.as_view(), name='long_enter'),  # 长时间未进入
     url(r'^long/entry', LongTimeEntry.as_view(), name='long_entry'),  # 长时间未出入
+    url(r'^aimachine', FaceMachineView.as_view(), name='aimachine'),  # 长时间未出入
  ]

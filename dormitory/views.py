@@ -535,10 +535,11 @@ class EnterTimeLate(APIView):
         pass
 
 
+# 闸机 添加 删除 激活 停用 获取列表
 class FaceMachineView(APIView):
 
     def post(self, request):
-        build_id = request.POST.get("buildid", "")
+        build_id = request.POST.get("build_id", "")
         machine_no = request.POST.get("machine_no", "")
         machine_status = 0
         try:
@@ -550,15 +551,14 @@ class FaceMachineView(APIView):
         error = ''
         return  JsonResponse({"result": result, "data": data, "error": error})
 
-
     def get(self, request):
-        build_id = request.GET.get("buildid", "")
+        build_id = request.GET.get("build_id", "")
         machine_no = request.GET.get("machine_no", "")
-        if build_id=='' and machine_no=='':
+        if build_id == '' and machine_no == '':
             machines = FaceMachine.objects.all()
-        elif build_id=='' and machine_no!='':
+        elif build_id == '' and machine_no != '':
             machines = FaceMachine.objects.filter(machine_no=machine_no)
-        elif build_id!='' and machine_no=='':
+        elif build_id != '' and machine_no == '':
             machines = FaceMachine.objects.filter(build_id=build_id)
         machines_data = FaceMachineSerializer(machines, many=True)
         machines_data = machines_data.data
@@ -567,12 +567,27 @@ class FaceMachineView(APIView):
         error = ''
         return JsonResponse({"result": result, "data": data, "error": error})
 
-
     def delete(self, request):
         machine_id = request.data.get("machine_id", "")
-        face_machine = FaceMachine.objects.filter(id=machine_id).update(machine_status=4)
+        face_machine = FaceMachine.objects.filter(id=machine_id)
+        face_machine.delete()
         result = True
         data = '删除成功'
+        error = ''
+        return JsonResponse({"result": result, "data": data, "error": error})
+
+    def put(self, request):
+        dis_or_act = request.data.get('dis_or_act')
+        machine_id = request.data.get("machine_id", "")
+        data = ''
+        if dis_or_act == '0':
+            face_machine = FaceMachine.objects.filter(id=machine_id).update(machine_status=1)
+            data = '激活成功'
+        elif dis_or_act == '1':
+            face_machine = FaceMachine.objects.filter(id=machine_id).update(machine_status=4)
+            data = '停用成功'
+        result = True
+        data = data
         error = ''
         return JsonResponse({"result": result, "data": data, "error": error})
 
@@ -583,7 +598,7 @@ class Machine_Fix(APIView):
         machine_id = request.data.get("machine_id", "")
         face_machine = FaceMachine.objects.filter(id=machine_id).update(machine_status=1)
         result = True
-        data = '删除成功'
+        data = '维修成功'
         error = ''
         return JsonResponse({"result": result, "data": data, "error": error})
 
