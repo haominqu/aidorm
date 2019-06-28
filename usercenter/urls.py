@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'unlock', UnLockView.as_view(), name="unlock"),  # 锁屏
     url(r'message', MessageNewsView.as_view(), name="message"),  # 通知
     url(r'msgdetail', MessageDetailView.as_view(), name="message_detail"),  # 通知
+    url(r'^unusualentry', UnusualEntry.as_view(), name='unusualentry'),  # 长时间未出入
+
 ]

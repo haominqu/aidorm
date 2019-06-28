@@ -14,12 +14,14 @@ from django.contrib.auth import login,authenticate
 # selfproject
 from college.models import ClassInfo
 from college.serializers import GlassSerializer
-from dormitory.models import DormBuild
-from dormitory.serializers import BuildSerializer, UnboundBuildSerializer
+from dormitory.models import DormBuild,AccessRecords
+from dormitory.serializers import BuildSerializer, UnboundBuildSerializer,AccessRecordSerializer
 from .serializers import *
 from .permissions import *
 from .models import *
 from aidorm.settings import BASE_URL
+
+
 
 # base
 import logging
@@ -715,4 +717,147 @@ class MessageDetailView(APIView):
         return JsonResponse({"result": result, "data": data, "error": error})
 
 
+class Test(APIView):
 
+    def get(self, request):
+        token = request.META.get("HTTP_AUTHORIZATION").split(' ')
+        a = jwt_decode_handler(token[2])
+        user_id = a['user_id']
+
+
+
+
+
+class UnusualEntry(APIView):
+    def get(self,request):
+        pass
+
+
+def UnusualEntryOrExit(self):
+    """
+    the count of unusually enter
+    :return:
+    """
+    start_time = datetime.datetime.strptime('00:00:00', '%H:%M:%S')
+    end_time = datetime.datetime.strptime('04:00:00', '%H:%M:%S')
+    access_datas = AccessRecords.objects.all()
+    data = {}
+    i = 0
+    j = 0
+    for access_data in access_datas:
+        en_datatime = datetime.datetime.strptime(str(access_data.enter_time)[11:], '%H:%M:%S')
+        ex_datatime = datetime.datetime.strptime(str(access_data.entry_time)[11:], '%H:%M:%S')
+        if en_datatime > start_time and en_datatime < end_time:
+            i = i + 1
+        if ex_datatime > start_time and ex_datatime < end_time:
+            j = j + 1
+    data['enter_count'] = i
+    data['entry_count'] = j
+    return data
+
+
+last_time,base_count_todata,
+
+datas ={}
+base_data={}
+base_data['last_time']=last_time
+base_data['last_location']='北京'
+datas['base']=base_data
+base_count_datas=[]
+for b_c_d in base_count_todata:
+    base_count_data={}
+    base_count_data['title']=b_c_d.title
+    base_count_data['number']=b_c_d.number
+    base_count_data['icon']=b_c_d.icon
+    base_count_data['color']=b_c_d.color
+    base_count_datas.append(base_count_data)
+datas['base_count']=base_count_datas
+message_datas=[]
+message_data={}
+message_data['title']=
+message_datas.append(message_datas)
+datas['message']=message_datas
+echarts_data={}
+echarts_data['type']=
+e_datas={}
+dire_data=[]
+dire_data.append('')
+e_datas['dire']=
+direses=[]
+direse={}
+direse['value']=
+direse['name']=
+itemStyle={}
+normal={}
+normal['color']=
+itemStyle['normal']=normal
+direse['itemStyle']=itemStyle
+direses.append(direse)
+e_datas['direses']=direses
+echarts_data['datas']=e_datas
+datas['echarts1']=echarts_data
+datas['echarts2']=
+
+
+
+# datas ={}
+# base_data={}
+# base_data['last_time']=last_time
+# base_data['last_location']='北京'
+# datas['base']=base_data
+# base_count_datas=[]
+# base_count_data={}
+# base_count_data['title']=
+# base_count_data['number']=
+# base_count_data['number']=
+# base_count_datas.append(base_count_data)
+# datas['base_count']=base_count_datas
+# message_datas=[]
+# message_data={}
+# message_data['title']=
+# message_datas.append(message_datas)
+# datas['message']=message_datas
+# echarts_data={}
+# echarts_data['type']=
+# e_datas={}
+# dire_data=[]
+# dire_data.append('')
+# e_datas['dire']=
+# direses=[]
+# direse={}
+# direse['value']=
+# direse['name']=
+# itemStyle={}
+# normal={}
+# normal['color']=
+# itemStyle['normal']=normal
+# direse['itemStyle']=itemStyle
+# direses.append(direse)
+# e_datas['direses']=direses
+# echarts_data['datas']=e_datas
+# datas['echarts1']=echarts_data
+# datas['echarts2']=
+
+
+    #
+    # {
+    #     "base": {"last_time": "2019-01-01 20:20:20", "last_location": "北京"},
+    #     "base_count": [{"title": "宿管帐号", "number": "1"}, {"title": "基础设施管理员", "number": "10"},
+    #                    {"title": "学校管理元", "number": "5"}, {"title": "导员", "number": "4"}],
+    #     "message": [{"title": "通知消息标题"}, {"title": "通知消息标题"}, {"title": "通知消息标题"}, {"title": "通知消息标题"},
+    #                 {"title": "通知消息标题"}, {"title": "通知消息标题"}],
+    #     "echarts": {"type": "pie",
+    #                 "datas": {"dire": ["男生人数", "女生人数"],
+    #                           "direses": [
+    #                               {value: 453682, name: 'Mon', itemStyle: {normal: {color: '#2d8cf0'}}},
+    #                               {value: 879545, name: 'Tues', itemStyle: {normal: {color: '#2d8cf0'}}},
+    #                               {value: 2354678, name: 'Wed', itemStyle: {normal: {color: '#2d8cf0'}}},
+    #                               {value: 1598403, name: 'Thur', itemStyle: {normal: {color: '#2d8cf0'}}},
+    #                               {value: 543250, name: 'Fri', itemStyle: {normal: {color: '#2d8cf0'}}},
+    #                               {value: 1305923, name: 'Sat', itemStyle: {normal: {color: '#2d8cf0'}}},
+    #                               {value: 1103456, name: 'Sun', itemStyle: {normal: {color: '#2d8cf0'}}}
+    #                           ]
+    #                           }
+    #                 }
+    #
+    # }
